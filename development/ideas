@@ -1,1 +1,64 @@
+Simulation toy / game
+Singleplayer
+2D tile graphics
+Top down view
 
+Highly configurable simulation of a city being inhabited by various creatures with various interrelationships
+
+Put simply: you fill a little world with people and monsters and then watch them interact, with a heavy emphasis on murdering each other
+
+Both fantasy and science fiction type things can be included
+Players can build their simulation exactly how they want
+Watch zombies fight human soldiers, civilians, vampires, or giant mechs
+Also if I could get awesome Warhammer 40K races (ish) to battle each other that would amazing
+
+There should definitely be a cover system for combat that makes use of tiles
+
+Should begin with a simple prototype:
+Just an empty field of grass
+Humans and zombies exist
+Make them murder each other
+
+Creatures exist
+Creatures have stats
+Creatures have AI behaviors which are used by the creature AI to determine what to do
+Creatures have a race
+Creatures have a faction
+Races have a category
+Races have base stats
+Races have weights for all AI behaviors
+Race categories have their values defined by the world, so that each world has its own set of rules for different races (e.g., you can set the rules for zombies so that they are slow or fast, etc.)
+Race categories have base stats
+Race categories have weights for all AI behaviors
+
+Factions have relationships with all factions (including themselves), and these relationships govern interactions between creatures
+For example, humans might use some flocking behavior with other friendly humans, so that they coalesce into cooperating groups
+Or humans might attack zombies on sight or retreat from them
+
+So faction relationships affect individual creature interactions
+Factions themselves can optionally include certain high level AI inputs
+For example, a faction of human soldiers might have a relationship with other human factions that causes them to prioritize protecting them, but the faction itself might have a morale level that causes the soldiers to become more cautious and less willing to help those same factions (or anyone else) as it gets lower
+
+The world is 2D and composed of a grid of tiles
+
+Tiles have a ground material
+Tiles have an optional ceiling material, which if present means the tile is indoors
+Tiles have a type, such as nothing, wall, or car
+Tiles have a material
+Tiles can have their type and materials changed by interactions with stuff
+
+Materials have various stats like flammability, strength, etc.
+
+Need a toggle for making all, none, or hovered ceiling tiles transparent
+
+Any tile with a ceiling is considered indoors
+
+Buildings are defined by the tiles that make them up
+A tile can be in 0 or 1 buildings at any time
+Buildings have a type
+
+AI inputs are all considered when creature needs to think
+These inputs are combined with the creature's AI behavior weights to determine a behavior to use
+
+AI behaviors include things like:
+What kind of tile to look for and move to (e.g., it is daytime and a human with a job moves to the nearest building with a type that matches that job
