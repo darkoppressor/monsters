@@ -14,11 +14,6 @@ Also if I could get awesome Warhammer 40K races (ish) to battle each other that 
 
 There should definitely be a cover system for combat that makes use of tiles
 
-Should begin with a simple prototype:
-Just an empty field of grass
-Humans and zombies exist
-Make them murder each other
-
 Creatures exist
 Creatures have stats
 Creatures have AI behaviors which are used by the creature AI to determine what to do
