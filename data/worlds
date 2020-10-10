@@ -1,0 +1,50 @@
+<world>
+	name:default
+	deadBecomeRace:
+	deadBecomeFaction:
+
+	<raceCategory>
+		name:human
+		mass:70.0
+		moveForce:100.0
+		maximumSpeed:3.6
+		collisionSteps:1
+		maximumHealth:10
+		meleeAttackDamageType:physical
+		meleeAttackMinimumDamage:1
+		meleeAttackMaximumDamage:2
+		meleeAttackRange:4
+		meleeAttackCooldown:200
+		meleeAttackPreparation:50
+		sightRange:20
+	</raceCategory>
+
+	<raceCategory>
+		name:zombie
+		mass:40.0
+		moveForce:25.0
+		maximumSpeed:0.9
+		collisionSteps:1
+		maximumHealth:5
+		meleeAttackDamageType:physical
+		meleeAttackMinimumDamage:2
+		meleeAttackMaximumDamage:3
+		meleeAttackRange:4
+		meleeAttackCooldown:400
+		meleeAttackPreparation:100
+		sightRange:10
+		undead:true
+	</raceCategory>
+
+	<faction>
+		name:humanCitizens
+		humanCitizens:friendly
+		zombies:hostile
+	</faction>
+
+	<faction>
+		name:zombies
+		humanCitizens:hostile
+		zombies:friendly
+	</faction>
+</world>

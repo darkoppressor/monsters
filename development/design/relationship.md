@@ -1,0 +1,4 @@
+# Relationship
+
+* Friendly
+* Hostile

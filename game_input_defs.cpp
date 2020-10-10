@@ -2,6 +2,8 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
+#include "game.h"
+
 #include <game_manager.h>
 #include <network_engine.h>
 #include <network_server.h>
@@ -71,6 +73,74 @@ void Game_Manager::handle_input_states_gui () {
     if (in_progress) {
         if (Object_Manager::game_command_state("scoreboard")) {
             display_scoreboard = true;
+        }
+
+        // Move the camera via directional keys
+
+        if (Game::moveInputState("left")) {
+            cam_state = "left";
+        }
+
+        if (Game::moveInputState("up")) {
+            cam_state = "up";
+        }
+
+        if (Game::moveInputState("right")) {
+            cam_state = "right";
+        }
+
+        if (Game::moveInputState("down")) {
+            cam_state = "down";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up")) {
+            cam_state = "left_up";
+        }
+
+        if (Game::moveInputState("up") && Game::moveInputState("right")) {
+            cam_state = "right_up";
+        }
+
+        if (Game::moveInputState("right") && Game::moveInputState("down")) {
+            cam_state = "right_down";
+        }
+
+        if (Game::moveInputState("down") && Game::moveInputState("left")) {
+            cam_state = "left_down";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("right")) {
+            cam_state = "left";
+        }
+
+        if (Game::moveInputState("up") && Game::moveInputState("down")) {
+            cam_state = "up";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up") && Game::moveInputState("right")) {
+            cam_state = "left_up";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("down") && Game::moveInputState("right")) {
+            cam_state = "left_down";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up") && Game::moveInputState("down")) {
+            cam_state = "left_up";
+        }
+
+        if (Game::moveInputState("up") && Game::moveInputState("right") && Game::moveInputState("down")) {
+            cam_state = "right_up";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up") && Game::moveInputState("right") &&
+            Game::moveInputState("down")) {
+            cam_state = "left_up";
+        }
+
+        if (!Game::moveInputState("left") && !Game::moveInputState("up") && !Game::moveInputState("right") &&
+            !Game::moveInputState("down")) {
+            cam_state = "none";
         }
     }
 }

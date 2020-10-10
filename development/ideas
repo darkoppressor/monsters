@@ -14,19 +14,10 @@ Also if I could get awesome Warhammer 40K races (ish) to battle each other that 
 
 There should definitely be a cover system for combat that makes use of tiles
 
-Creatures exist
-Creatures have stats
-Creatures have AI behaviors which are used by the creature AI to determine what to do
-Creatures have a race
-Creatures have a faction
-Races have a category
-Races have base stats
-Races have weights for all AI behaviors
-Race categories have their values defined by the world, so that each world has its own set of rules for different races (e.g., you can set the rules for zombies so that they are slow or fast, etc.)
-Race categories have base stats
-Race categories have weights for all AI behaviors
+For creatures:
+Add ranged attack stats
+Add defense stat(s)
 
-Factions have relationships with all factions (including themselves), and these relationships govern interactions between creatures
 For example, humans might use some flocking behavior with other friendly humans, so that they coalesce into cooperating groups
 Or humans might attack zombies on sight or retreat from them
 

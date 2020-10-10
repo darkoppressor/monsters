@@ -1,0 +1,13 @@
+<race>
+	name:human
+	category:human
+	sprite:human
+	collisionReduction:1.0
+</race>
+
+<race>
+	name:zombie
+	category:zombie
+	sprite:zombie
+	collisionReduction:1.0
+</race>

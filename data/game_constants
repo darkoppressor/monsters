@@ -43,8 +43,26 @@
 	type:double
 </game_constant>
 
-/*<game_constant>
-	name:example_constant
-	value:1.0
+<game_constant>
+	// pixels
+	// 1 pixel = pixels_to_meters meters
+	name:pixels_to_meters
+	value:0.1143
 	type:double
-</game_constant>*/
+</game_constant>
+
+<game_constant>
+	// pixels
+	name:tile_size
+	value:8.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// Valid range: [1, logic update rate]
+	// There will be ai_goal_selection_period - 1 frames in between each AI Goal selection opportunity
+	// AI Goal selection is additionally staggered among the Creatures
+	name:ai_goal_selection_period
+	value:30
+	type:uint32_t
+</game_constant>

@@ -2,12 +2,19 @@ cmake_minimum_required(VERSION 3.2.2)
 project(monsters)
 
 set(SOURCE_FILES
+ai_goal.cpp
+attack.cpp
 button_events_game.cpp
 console_commands_defs.cpp
+counter.cpp
+creature.cpp
+creature_ai.cpp
+creature_target.cpp
 data_manager_defs.cpp
 dev_info.cpp
 directories_defs.cpp
 engine_glue.cpp
+faction.cpp
 game.cpp
 game.rc
 game_constants.cpp
@@ -17,10 +24,17 @@ game_manager_defs.cpp
 game_options.cpp
 main.cpp
 network_game.cpp
+physics_object.cpp
+race_category.cpp
+race.cpp
+relationship.cpp
 special_info.cpp
+stats.cpp
+tile.cpp
 version.cpp
 window_close_function.cpp
 window_scrolling_buttons.cpp
+world.cpp
 )
 
 ########################################################################################################################
@@ -200,6 +214,52 @@ target_include_directories(Release-macOS-x86_64 PRIVATE
 )
 
 target_link_libraries(Release-macOS-x86_64
+/home/tails/build-server/cheese-engine/libCheese-Engine-macOS-x86_64.a
+/home/tails/build-server/osx-x86_64/zlib/contrib/minizip/.libs/libminizip.a
+/home/tails/build-server/osx-x86_64/SDL2_image/.libs/libSDL2_image.a
+/home/tails/build-server/osx-x86_64/libpng/.libs/libpng.a
+/home/tails/build-server/osx-x86_64/zlib/libz.a
+/home/tails/build-server/osx-x86_64/SDL2_mixer/build/.libs/libSDL2_mixer.a
+/home/tails/build-server/osx-x86_64/libvorbis/lib/.libs/libvorbis.a
+/home/tails/build-server/osx-x86_64/libvorbis/lib/.libs/libvorbisfile.a
+/home/tails/build-server/osx-x86_64/libogg/src/.libs/libogg.a
+/home/tails/build-server/osx-x86_64/SDL2/build/.libs/libSDL2.a
+/home/tails/build-server/osx-x86_64/SDL2/build/.libs/libSDL2main.a
+/home/tails/build-server/osx-x86_64/boost/stage/lib/libboost_system.a
+/home/tails/build-server/osx-x86_64/boost/stage/lib/libboost_filesystem.a
+/home/tails/build-server/osx-x86_64/raknet/raknet/Lib/LibStatic/Lib/libRakNetLibStatic.a
+/home/tails/build-server/steamworks-sdk/redistributable_bin/osx/libsteam_api.dylib
+"-m64 -arch x86_64 -mmacosx-version-min=10.9 -stdlib=libc++ -liconv -framework CoreFoundation -framework ApplicationServices -framework IOKit -framework AppKit -framework Carbon -framework ForceFeedback -framework CoreAudio -framework AudioUnit -framework AudioToolbox -framework OpenGL -framework CoreVideo"
+)
+
+endif()
+
+########################################################################################################################
+# Debug-macOS-x86_64
+########################################################################################################################
+
+if(NOT CMAKE_EXPORT_COMPILE_COMMANDS)
+
+add_executable(Debug-macOS-x86_64 ${SOURCE_FILES})
+
+set_target_properties(Debug-macOS-x86_64 PROPERTIES
+OUTPUT_NAME Monsters-macOS-Debug-x86_64
+COMPILE_FLAGS "-std=c++11 -Wall -Wextra -g -m64 -stdlib=libc++ -DGAME_OS_MACOS"
+)
+
+target_include_directories(Debug-macOS-x86_64 PRIVATE
+/home/tails/build-server/osx-x86_64/osxcross/target/SDK/MacOSX.sdk/usr/include/
+/home/tails/build-server/steamworks-sdk/public/steam/
+/home/tails/build-server/osx-x86_64/SDL2/include/
+/home/tails/build-server/osx-x86_64/SDL2_image/
+/home/tails/build-server/osx-x86_64/SDL2_mixer/
+/home/tails/build-server/osx-x86_64/boost/
+/home/tails/build-server/osx-x86_64/raknet/
+/home/tails/build-server/osx-x86_64/zlib/
+/home/tails/build-server/cheese-engine
+)
+
+target_link_libraries(Debug-macOS-x86_64
 /home/tails/build-server/cheese-engine/libCheese-Engine-macOS-x86_64.a
 /home/tails/build-server/osx-x86_64/zlib/contrib/minizip/.libs/libminizip.a
 /home/tails/build-server/osx-x86_64/SDL2_image/.libs/libSDL2_image.a
