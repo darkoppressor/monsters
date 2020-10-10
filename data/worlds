@@ -53,4 +53,15 @@
 		humanCitizens:hostile
 		zombies:friendly
 	</faction>
+
+	<equipment>
+		name:crowbar
+		displayName:Crowbar
+		slot:meleeWeapon
+		mass:2.3
+		damageType:smashing
+		minimumDamage:1
+		maximumDamage:2
+		range:5
+	</equipment>
 </world>

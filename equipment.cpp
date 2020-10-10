@@ -2,11 +2,10 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
-// QQQ This is not currently used
+#include "equipment.h"
 
-#ifndef tile_h
-#define tile_h
+using namespace std;
 
-class Tile {};
-
-#endif
+Equipment::Equipment (const String& type) {
+    this->type = type;
+}

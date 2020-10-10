@@ -26,7 +26,7 @@ void Engine::render_dev_info () {
         msg += "Camera Zoom: " + Strings::num_to_string(Game_Manager::camera_zoom) + "\n";
 
         for (Index i = 0; i < Game::getCreatureCount(); i++) {
-            const Creature& creature = Game::getCreature(i);
+            Creature& creature = Game::getCreature(i);
             msg += "\nCreature " + Strings::num_to_string(i) + ":\n";
             PixelBox box = creature.getBox();
             msg += "  Position: " + Strings::num_to_string(box.x) + ", " + Strings::num_to_string(box.y) + "\n";
@@ -34,7 +34,7 @@ void Engine::render_dev_info () {
                 creature.getMaximumHealth()) + "\n";
             msg += "  Race: " + creature.getRace() + "\n";
             msg += "  Faction: " + creature.getFaction() + "\n";
-            msg += "  AI Goal:\n";
+            msg += "  Goal:\n";
             msg += "    Type: " + creature.getGoal().getType() + "\n";
             msg += "    Target index: " + Strings::num_to_string(creature.getGoal().getTargetIndex()) + "\n";
             msg += "  Attack:\n";
@@ -46,6 +46,10 @@ void Engine::render_dev_info () {
                    Strings::bool_to_string(creature.getAttack().getPreparationCounter().isCounting()) + "\n";
             msg += "    Preparation count: " + Strings::num_to_string(
                 creature.getAttack().getPreparationCounter().getCount()) + "\n";
+            msg += "  Equipment:\n";
+            msg += "    Melee weapon: " +
+                   (creature.getEquipment().hasMeleeWeapon() ? creature.getEquipment().getMeleeWeapon().displayName :
+                    "not equipped") + "\n";
         }
     }
 

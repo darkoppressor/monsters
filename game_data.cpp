@@ -128,6 +128,8 @@ void Game_Data::loadWorld (File_IO_Load* load) {
             i = loadRaceCategory(lines, i + 1, world);
         } else if (Data_Reader::check_prefix(line, "<faction>")) {
             i = loadFaction(lines, i + 1, world);
+        } else if (Data_Reader::check_prefix(line, "<equipment>")) {
+            i = loadEquipmentType(lines, i + 1, world);
         }
     }
 
@@ -185,6 +187,41 @@ size_t Game_Data::loadFaction (vector<string>& lines, size_t lineIndex, World& w
     return lines.size() - 1;
 }
 
+size_t Game_Data::loadEquipmentType (vector<string>& lines, size_t lineIndex, World& world) {
+    String name = "";
+    EquipmentType equipment;
+
+    for (size_t i = lineIndex; i < lines.size(); i++) {
+        string& line = lines[i];
+
+        if (Data_Reader::check_prefix(line, "name:")) {
+            name = line;
+        } else if (Data_Reader::check_prefix(line, "displayName:")) {
+            equipment.displayName = line;
+        } else if (Data_Reader::check_prefix(line, "slot:")) {
+            equipment.slot = line;
+        } else if (Data_Reader::check_prefix(line, "mass:")) {
+            equipment.mass = Strings::string_to_double(line);
+        } else if (Data_Reader::check_prefix(line, "damageType:")) {
+            equipment.damageType = line;
+        } else if (Data_Reader::check_prefix(line, "minimumDamage:")) {
+            equipment.minimumDamage = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "maximumDamage:")) {
+            equipment.maximumDamage = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "range:")) {
+            equipment.range = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "</equipment>")) {
+            world.equipment[name] = equipment;
+
+            return i;
+        }
+    }
+
+    world.equipment[name] = equipment;
+
+    return lines.size() - 1;
+}
+
 const World& Game_Data::getWorld (const String& name) {
     if (worlds.count(name)) {
         return worlds[name];
@@ -212,6 +249,17 @@ const Faction& Game_Data::getFaction (const String& worldName, const String& nam
         return world.factions.at(name);
     } else {
         Log::add_error("Error accessing faction '" + name + "' for world '" + worldName + "'");
+        Engine::quit();
+    }
+}
+
+const EquipmentType& Game_Data::getEquipmentType (const String& worldName, const String& name) {
+    const World& world = getWorld(worldName);
+
+    if (world.equipment.count(name)) {
+        return world.equipment.at(name);
+    } else {
+        Log::add_error("Error accessing equipment type '" + name + "' for world '" + worldName + "'");
         Engine::quit();
     }
 }

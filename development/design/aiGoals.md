@@ -1,7 +1,7 @@
 # AI Goals
 
-AI inputs are considered when a Creature needs to think. These inputs are combined with the Creature's AI Goal weights
-to determine a behavior.
+AI inputs are considered when a Creature needs to think. These inputs are combined with the Creature's
+[AI Goal](aiGoals.md) weights to determine a behavior.
 
 ##  Do nothing
 

@@ -4,9 +4,16 @@
 
 // QQQ This is not currently used
 
-#ifndef tile_h
-#define tile_h
+#ifndef equipment_h
+#define equipment_h
 
-class Tile {};
+#include "base_types.h"
+
+class Equipment {
+    private:
+        String type;
+    public:
+        Equipment (const String& type);
+};
 
 #endif

@@ -11,6 +11,7 @@
 #include "attack.h"
 #include "relationship.h"
 #include "damage.h"
+#include "equipment_manager.h"
 
 class Damage;
 
@@ -21,6 +22,7 @@ class Creature: public PhysicsObject {
         Health health;
         AiGoal goal;
         Attack attack;
+        EquipmentManager equipment;
 
         Pixels getCollisionReduction() const;
         double getMass() const;
@@ -42,8 +44,9 @@ class Creature: public PhysicsObject {
         String getRace() const;
         String getFaction() const;
         Health getHealth() const;
-        AiGoal getGoal() const;
-        Attack getAttack() const;
+        const AiGoal& getGoal() const;
+        const Attack& getAttack() const;
+        EquipmentManager& getEquipment();
 
         Health getMaximumHealth() const;
         Health getSmashingDefense() const;

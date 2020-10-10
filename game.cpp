@@ -83,6 +83,7 @@ void Game::generate_world () {
     for (size_t i = 0; i < 25; i++) {
         creatures.push_back(Creature(TileCoords(rng.random_range(0, 100), rng.random_range(0, 100)), "human",
                                      "humanCitizens"));
+        creatures.back().getEquipment().equip("crowbar");
     }
 
     for (size_t i = 0; i < 50; i++) {

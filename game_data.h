@@ -30,9 +30,11 @@ class Game_Data {
         static void loadWorld(File_IO_Load* load);
         static std::size_t loadRaceCategory(std::vector<std::string>& lines, std::size_t lineIndex, World& world);
         static std::size_t loadFaction(std::vector<std::string>& lines, std::size_t lineIndex, World& world);
+        static std::size_t loadEquipmentType(std::vector<std::string>& lines, std::size_t lineIndex, World& world);
         static const World& getWorld(const String& name);
         static const RaceCategory& getRaceCategory(const String& worldName, const String& name);
         static const Faction& getFaction(const String& worldName, const String& name);
+        static const EquipmentType& getEquipmentType(const String& worldName, const String& name);
         static void loadRace(File_IO_Load* load);
         static const Race& getRace(const String& name);
 };

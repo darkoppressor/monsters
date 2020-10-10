@@ -8,6 +8,7 @@
 #include "base_types.h"
 #include "race_category.h"
 #include "faction.h"
+#include "equipment_type.h"
 
 class World {
     public:
@@ -15,6 +16,7 @@ class World {
         String deadBecomeFaction;
         UnorderedMap<String, RaceCategory> raceCategories;
         UnorderedMap<String, Faction> factions;
+        UnorderedMap<String, EquipmentType> equipment;
 
         World ();
 };

@@ -13,10 +13,16 @@ Pixels Creature::getCollisionReduction () const {
     return Game_Data::getRace(race).collisionReduction;
 }
 double Creature::getMass () const {
+    double mass = 0.0;
+
+    mass += equipment.getMass();
+
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.mass != Stats::NO_MASS ? race.stats.mass : Game_Data::getRaceCategory(
+    mass += race.stats.mass != Stats::NO_MASS ? race.stats.mass : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.mass;
+
+    return mass;
 }
 double Creature::getMoveForce () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -38,6 +44,10 @@ uint32 Creature::getCollisionSteps () const {
         Game::getWorldName(), race.category).stats.collisionSteps;
 }
 String Creature::getMeleeAttackDamageType () const {
+    if (equipment.hasMeleeWeapon()) {
+        return equipment.getMeleeWeapon().damageType;
+    }
+
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeAttackDamageType !=
@@ -45,20 +55,42 @@ String Creature::getMeleeAttackDamageType () const {
         Game::getWorldName(), race.category).stats.meleeAttackDamageType;
 }
 Health Creature::getMeleeAttackMinimumDamage () const {
+    Health minimumDamage = 0;
+
+    if (equipment.hasMeleeWeapon()) {
+        minimumDamage += equipment.getMeleeWeapon().minimumDamage;
+    }
+
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.meleeAttackMinimumDamage !=
-           Stats::NO_MELEE_ATTACK_MINIMUM_DAMAGE ? race.stats.meleeAttackMinimumDamage : Game_Data::getRaceCategory(
+    minimumDamage += race.stats.meleeAttackMinimumDamage !=
+                     Stats::NO_MELEE_ATTACK_MINIMUM_DAMAGE ? race.stats.meleeAttackMinimumDamage : Game_Data::
+                     getRaceCategory(
         Game::getWorldName(), race.category).stats.meleeAttackMinimumDamage;
+
+    return minimumDamage;
 }
 Health Creature::getMeleeAttackMaximumDamage () const {
+    Health maximumDamage = 0;
+
+    if (equipment.hasMeleeWeapon()) {
+        maximumDamage += equipment.getMeleeWeapon().maximumDamage;
+    }
+
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.meleeAttackMaximumDamage !=
-           Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE ? race.stats.meleeAttackMaximumDamage : Game_Data::getRaceCategory(
+    maximumDamage += race.stats.meleeAttackMaximumDamage !=
+                     Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE ? race.stats.meleeAttackMaximumDamage : Game_Data::
+                     getRaceCategory(
         Game::getWorldName(), race.category).stats.meleeAttackMaximumDamage;
+
+    return maximumDamage;
 }
 Tiles Creature::getMeleeAttackRange () const {
+    if (equipment.hasMeleeWeapon()) {
+        return equipment.getMeleeWeapon().range;
+    }
+
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeAttackRange !=
@@ -112,11 +144,14 @@ String Creature::getFaction () const {
 Health Creature::getHealth () const {
     return health;
 }
-AiGoal Creature::getGoal () const {
+const AiGoal& Creature::getGoal () const {
     return goal;
 }
-Attack Creature::getAttack () const {
+const Attack& Creature::getAttack () const {
     return attack;
+}
+EquipmentManager& Creature::getEquipment () {
+    return equipment;
 }
 
 Health Creature::getMaximumHealth () const {

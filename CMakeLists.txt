@@ -15,6 +15,9 @@ data_manager_defs.cpp
 dev_info.cpp
 directories_defs.cpp
 engine_glue.cpp
+equipment.cpp
+equipment_manager.cpp
+equipment_type.cpp
 faction.cpp
 game.cpp
 game.rc
