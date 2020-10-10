@@ -1,3 +1,5 @@
 # Damage Type
 
-* Physical
+* Smashing
+* Slashing
+* Stabbing

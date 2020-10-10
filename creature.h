@@ -10,6 +10,9 @@
 #include "ai_goal.h"
 #include "attack.h"
 #include "relationship.h"
+#include "damage.h"
+
+class Damage;
 
 class Creature: public PhysicsObject {
     private:
@@ -43,13 +46,16 @@ class Creature: public PhysicsObject {
         Attack getAttack() const;
 
         Health getMaximumHealth() const;
+        Health getSmashingResistance() const;
+        Health getSlashingResistance() const;
+        Health getStabbingResistance() const;
 
         bool isAlive() const;
         PixelBox getSight() const;
 
         void meleeAttack(const Index index, const Index creatureIndex);
         // Returns counterattack damage
-        Health takeDamage(const Index index, const Health damage);
+        Damage takeDamage(const Index index, const Damage& damage);
         void die(const Index index);
 
         void handleCreatureDeath(const Index index);

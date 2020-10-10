@@ -11,5 +11,8 @@
 * Melee attack range
 * Melee attack cooldown
 * Melee attack preparation
+* Smashing resistance
+* Slashing resistance
+* Stabbing resistance
 * Sight range
 * Undead

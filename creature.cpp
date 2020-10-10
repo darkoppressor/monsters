@@ -125,6 +125,27 @@ Health Creature::getMaximumHealth () const {
     return race.stats.maximumHealth != Stats::NO_MAXIMUM_HEALTH ? race.stats.maximumHealth : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.maximumHealth;
 }
+Health Creature::getSmashingResistance () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.smashingResistance !=
+           Stats::NO_SMASHING_RESISTANCE ? race.stats.smashingResistance : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.smashingResistance;
+}
+Health Creature::getSlashingResistance () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.slashingResistance !=
+           Stats::NO_SLASHING_RESISTANCE ? race.stats.slashingResistance : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.slashingResistance;
+}
+Health Creature::getStabbingResistance () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.stabbingResistance !=
+           Stats::NO_STABBING_RESISTANCE ? race.stats.stabbingResistance : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.stabbingResistance;
+}
 
 bool Creature::isAlive () const {
     return health > 0;
@@ -137,31 +158,29 @@ PixelBox Creature::getSight () const {
 }
 
 void Creature::meleeAttack (const Index index, const Index creatureIndex) {
-    Health counterattack =
+    Damage counterattack =
         Game::getCreature(creatureIndex).takeDamage(creatureIndex,
-                                                    Game::getRng().random_range(getMeleeAttackMinimumDamage(),
-                                                                                getMeleeAttackMaximumDamage()));
+                                                    Damage(getMeleeAttackDamageType(),
+                                                           Game::getRng().random_range(getMeleeAttackMinimumDamage(),
+                                                                                       getMeleeAttackMaximumDamage())));
 
-    if (counterattack > 0) {
+    if (counterattack.getAmount() > 0) {
         takeDamage(index, counterattack);
     }
 }
-Health Creature::takeDamage (const Index index, const Health damage) {
-    if (damage >= health) {
+Damage Creature::takeDamage (const Index index, const Damage& damage) {
+    Health damageTaken = damage.getModifiedAmount(Game::getCreature(index));
+
+    if (damageTaken >= health) {
         health = 0;
         die(index);
 
-        return 0;
+        return Damage("", 0);
     } else {
-        health -= damage;
+        health -= damageTaken;
 
-        if (health == 0) {
-            die(index);
-
-            return 0;
-        } else {
-            return Game::getRng().random_range(getMeleeAttackMinimumDamage(), getMeleeAttackMaximumDamage());
-        }
+        return Damage(getMeleeAttackDamageType(),
+                      Game::getRng().random_range(getMeleeAttackMinimumDamage(), getMeleeAttackMaximumDamage()));
     }
 }
 void Creature::die (const Index index) {

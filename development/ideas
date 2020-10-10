@@ -14,9 +14,11 @@ Also if I could get awesome Warhammer 40K races (ish) to battle each other that 
 
 There should definitely be a cover system for combat that makes use of tiles
 
+QQQ:
+STILL NEED TO IMPLEMENT AI GOAL WEIGHTS
+
 For creatures:
 Add ranged attack stats
-Add defense stat(s)
 
 For example, humans might use some flocking behavior with other friendly humans, so that they coalesce into cooperating groups
 Or humans might attack zombies on sight or retreat from them

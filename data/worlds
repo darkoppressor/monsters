@@ -10,12 +10,15 @@
 		maximumSpeed:3.6
 		collisionSteps:1
 		maximumHealth:10
-		meleeAttackDamageType:physical
+		meleeAttackDamageType:smashing
 		meleeAttackMinimumDamage:1
 		meleeAttackMaximumDamage:2
 		meleeAttackRange:4
 		meleeAttackCooldown:200
 		meleeAttackPreparation:50
+		smashingResistance:0
+		slashingResistance:0
+		stabbingResistance:0
 		sightRange:20
 	</raceCategory>
 
@@ -26,12 +29,15 @@
 		maximumSpeed:0.9
 		collisionSteps:1
 		maximumHealth:5
-		meleeAttackDamageType:physical
+		meleeAttackDamageType:smashing
 		meleeAttackMinimumDamage:2
 		meleeAttackMaximumDamage:3
 		meleeAttackRange:4
 		meleeAttackCooldown:400
 		meleeAttackPreparation:100
+		smashingResistance:0
+		slashingResistance:0
+		stabbingResistance:0
 		sightRange:10
 		undead:true
 	</raceCategory>

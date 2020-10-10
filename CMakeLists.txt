@@ -10,6 +10,7 @@ counter.cpp
 creature.cpp
 creature_ai.cpp
 creature_target.cpp
+damage.cpp
 data_manager_defs.cpp
 dev_info.cpp
 directories_defs.cpp

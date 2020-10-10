@@ -10,13 +10,16 @@ const double Stats::NO_MASS = -1.0;
 const double Stats::NO_MOVE_FORCE = -1.0;
 const double Stats::NO_MAXIMUM_SPEED = -1.0;
 const uint32 Stats::NO_COLLISION_STEPS = 0u;
-const Health Stats::NO_MAXIMUM_HEALTH = 0u;
+const Health Stats::NO_MAXIMUM_HEALTH = -1;
 const String Stats::NO_MELEE_ATTACK_DAMAGE_TYPE = "";
-const Health Stats::NO_MELEE_ATTACK_MINIMUM_DAMAGE = 0u;
-const Health Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE = 0u;
+const Health Stats::NO_MELEE_ATTACK_MINIMUM_DAMAGE = -1;
+const Health Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE = -1;
 const Tiles Stats::NO_MELEE_ATTACK_RANGE = 0;
 const Count Stats::NO_MELEE_ATTACK_COOLDOWN = 0u;
 const Count Stats::NO_MELEE_ATTACK_PREPARATION = 0u;
+const Health Stats::NO_SMASHING_RESISTANCE = -1;
+const Health Stats::NO_SLASHING_RESISTANCE = -1;
+const Health Stats::NO_STABBING_RESISTANCE = -1;
 const Tiles Stats::NO_SIGHT_RANGE = 0;
 
 Stats::Stats () {
@@ -31,6 +34,9 @@ Stats::Stats () {
     meleeAttackRange = NO_MELEE_ATTACK_RANGE;
     meleeAttackCooldown = NO_MELEE_ATTACK_COOLDOWN;
     meleeAttackPreparation = NO_MELEE_ATTACK_PREPARATION;
+    smashingResistance = NO_SMASHING_RESISTANCE;
+    slashingResistance = NO_SLASHING_RESISTANCE;
+    stabbingResistance = NO_STABBING_RESISTANCE;
     sightRange = NO_SIGHT_RANGE;
     definesUndead = false;
     undead = false;

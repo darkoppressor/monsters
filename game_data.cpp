@@ -57,7 +57,7 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
 
         return true;
     } else if (Data_Reader::check_prefix(line, "maximumHealth:")) {
-        stats.maximumHealth = Strings::string_to_unsigned_long(line);
+        stats.maximumHealth = Strings::string_to_long(line);
 
         return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackDamageType:")) {
@@ -65,11 +65,11 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
 
         return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackMinimumDamage:")) {
-        stats.meleeAttackMinimumDamage = Strings::string_to_unsigned_long(line);
+        stats.meleeAttackMinimumDamage = Strings::string_to_long(line);
 
         return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackMaximumDamage:")) {
-        stats.meleeAttackMaximumDamage = Strings::string_to_unsigned_long(line);
+        stats.meleeAttackMaximumDamage = Strings::string_to_long(line);
 
         return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackRange:")) {
@@ -82,6 +82,18 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
         return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackPreparation:")) {
         stats.meleeAttackPreparation = Strings::string_to_unsigned_long(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "smashingResistance:")) {
+        stats.smashingResistance = Strings::string_to_long(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "slashingResistance:")) {
+        stats.slashingResistance = Strings::string_to_long(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "stabbingResistance:")) {
+        stats.stabbingResistance = Strings::string_to_long(line);
 
         return true;
     } else if (Data_Reader::check_prefix(line, "sightRange:")) {

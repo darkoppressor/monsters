@@ -24,17 +24,17 @@ using int16 = std::int16_t;
 using uint16 = std::uint16_t;
 using int8 = std::int8_t;
 using uint8 = std::uint8_t;
-template<class T> using List = std::vector<T>;
-template<class T, class U> using UnorderedMap = std::unordered_map<T, U>;
+template < class T > using List = std::vector < T >;
+template < class T, class U > using UnorderedMap = std::unordered_map < T, U >;
 using Pixels = double;
 using Tiles = int32;
-using PixelCoords = Coords<Pixels>;
-using TileCoords = Coords<Tiles>;
-using PixelBox = Collision_Rect<Pixels>;
-using Quad = Quadtree<Pixels, uint32>;
-using Health = uint16;
+using PixelCoords = Coords < Pixels >;
+using TileCoords = Coords < Tiles >;
+using PixelBox = Collision_Rect < Pixels >;
+using Quad = Quadtree < Pixels, uint32 >;
+using Health = int16;
 using Index = uint32;
-using Indexes = std::unordered_set<Index>;
+using Indexes = std::unordered_set < Index >;
 using Count = uint16;
 
 #endif
