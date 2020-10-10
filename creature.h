@@ -46,9 +46,9 @@ class Creature: public PhysicsObject {
         Attack getAttack() const;
 
         Health getMaximumHealth() const;
-        Health getSmashingResistance() const;
-        Health getSlashingResistance() const;
-        Health getStabbingResistance() const;
+        Health getSmashingDefense() const;
+        Health getSlashingDefense() const;
+        Health getStabbingDefense() const;
 
         bool isAlive() const;
         PixelBox getSight() const;

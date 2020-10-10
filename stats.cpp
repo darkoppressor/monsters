@@ -17,9 +17,9 @@ const Health Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE = -1;
 const Tiles Stats::NO_MELEE_ATTACK_RANGE = 0;
 const Count Stats::NO_MELEE_ATTACK_COOLDOWN = 0u;
 const Count Stats::NO_MELEE_ATTACK_PREPARATION = 0u;
-const Health Stats::NO_SMASHING_RESISTANCE = -1;
-const Health Stats::NO_SLASHING_RESISTANCE = -1;
-const Health Stats::NO_STABBING_RESISTANCE = -1;
+const Health Stats::NO_SMASHING_DEFENSE = -1;
+const Health Stats::NO_SLASHING_DEFENSE = -1;
+const Health Stats::NO_STABBING_DEFENSE = -1;
 const Tiles Stats::NO_SIGHT_RANGE = 0;
 
 Stats::Stats () {
@@ -34,9 +34,9 @@ Stats::Stats () {
     meleeAttackRange = NO_MELEE_ATTACK_RANGE;
     meleeAttackCooldown = NO_MELEE_ATTACK_COOLDOWN;
     meleeAttackPreparation = NO_MELEE_ATTACK_PREPARATION;
-    smashingResistance = NO_SMASHING_RESISTANCE;
-    slashingResistance = NO_SLASHING_RESISTANCE;
-    stabbingResistance = NO_STABBING_RESISTANCE;
+    smashingDefense = NO_SMASHING_DEFENSE;
+    slashingDefense = NO_SLASHING_DEFENSE;
+    stabbingDefense = NO_STABBING_DEFENSE;
     sightRange = NO_SIGHT_RANGE;
     definesUndead = false;
     undead = false;

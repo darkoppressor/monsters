@@ -84,16 +84,16 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
         stats.meleeAttackPreparation = Strings::string_to_unsigned_long(line);
 
         return true;
-    } else if (Data_Reader::check_prefix(line, "smashingResistance:")) {
-        stats.smashingResistance = Strings::string_to_long(line);
+    } else if (Data_Reader::check_prefix(line, "smashingDefense:")) {
+        stats.smashingDefense = Strings::string_to_long(line);
 
         return true;
-    } else if (Data_Reader::check_prefix(line, "slashingResistance:")) {
-        stats.slashingResistance = Strings::string_to_long(line);
+    } else if (Data_Reader::check_prefix(line, "slashingDefense:")) {
+        stats.slashingDefense = Strings::string_to_long(line);
 
         return true;
-    } else if (Data_Reader::check_prefix(line, "stabbingResistance:")) {
-        stats.stabbingResistance = Strings::string_to_long(line);
+    } else if (Data_Reader::check_prefix(line, "stabbingDefense:")) {
+        stats.stabbingDefense = Strings::string_to_long(line);
 
         return true;
     } else if (Data_Reader::check_prefix(line, "sightRange:")) {

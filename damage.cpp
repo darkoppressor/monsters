@@ -16,10 +16,10 @@ Health Damage::getAmount () const {
 
 Health Damage::getModifiedAmount (const Creature& creature) const {
     if (type == "smashing") {
-        return max(amount - creature.getSmashingResistance(), 0);
+        return max(amount - creature.getSmashingDefense(), 0);
     } else if (type == "slashing") {
-        return max(amount - creature.getSlashingResistance(), 0);
+        return max(amount - creature.getSlashingDefense(), 0);
     } else if (type == "stabbing") {
-        return max(amount - creature.getStabbingResistance(), 0);
+        return max(amount - creature.getStabbingDefense(), 0);
     }
 }

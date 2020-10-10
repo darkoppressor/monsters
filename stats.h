@@ -20,9 +20,9 @@ class Stats {
         static const Tiles NO_MELEE_ATTACK_RANGE;
         static const Count NO_MELEE_ATTACK_COOLDOWN;
         static const Count NO_MELEE_ATTACK_PREPARATION;
-        static const Health NO_SMASHING_RESISTANCE;
-        static const Health NO_SLASHING_RESISTANCE;
-        static const Health NO_STABBING_RESISTANCE;
+        static const Health NO_SMASHING_DEFENSE;
+        static const Health NO_SLASHING_DEFENSE;
+        static const Health NO_STABBING_DEFENSE;
         static const Tiles NO_SIGHT_RANGE;
         // kilograms
         double mass;
@@ -41,9 +41,9 @@ class Stats {
         Count meleeAttackCooldown;
         // milliseconds
         Count meleeAttackPreparation;
-        Health smashingResistance;
-        Health slashingResistance;
-        Health stabbingResistance;
+        Health smashingDefense;
+        Health slashingDefense;
+        Health stabbingDefense;
         // tiles
         Tiles sightRange;
         bool definesUndead;

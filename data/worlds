@@ -16,9 +16,9 @@
 		meleeAttackRange:4
 		meleeAttackCooldown:200
 		meleeAttackPreparation:50
-		smashingResistance:0
-		slashingResistance:0
-		stabbingResistance:0
+		smashingDefense:0
+		slashingDefense:0
+		stabbingDefense:0
 		sightRange:20
 	</raceCategory>
 
@@ -35,9 +35,9 @@
 		meleeAttackRange:4
 		meleeAttackCooldown:400
 		meleeAttackPreparation:100
-		smashingResistance:0
-		slashingResistance:0
-		stabbingResistance:0
+		smashingDefense:0
+		slashingDefense:0
+		stabbingDefense:0
 		sightRange:10
 		undead:true
 	</raceCategory>

@@ -125,26 +125,26 @@ Health Creature::getMaximumHealth () const {
     return race.stats.maximumHealth != Stats::NO_MAXIMUM_HEALTH ? race.stats.maximumHealth : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.maximumHealth;
 }
-Health Creature::getSmashingResistance () const {
+Health Creature::getSmashingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.smashingResistance !=
-           Stats::NO_SMASHING_RESISTANCE ? race.stats.smashingResistance : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.smashingResistance;
+    return race.stats.smashingDefense !=
+           Stats::NO_SMASHING_DEFENSE ? race.stats.smashingDefense : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.smashingDefense;
 }
-Health Creature::getSlashingResistance () const {
+Health Creature::getSlashingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.slashingResistance !=
-           Stats::NO_SLASHING_RESISTANCE ? race.stats.slashingResistance : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.slashingResistance;
+    return race.stats.slashingDefense !=
+           Stats::NO_SLASHING_DEFENSE ? race.stats.slashingDefense : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.slashingDefense;
 }
-Health Creature::getStabbingResistance () const {
+Health Creature::getStabbingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.stabbingResistance !=
-           Stats::NO_STABBING_RESISTANCE ? race.stats.stabbingResistance : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.stabbingResistance;
+    return race.stats.stabbingDefense !=
+           Stats::NO_STABBING_DEFENSE ? race.stats.stabbingDefense : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.stabbingDefense;
 }
 
 bool Creature::isAlive () const {
