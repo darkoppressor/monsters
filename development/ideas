@@ -45,8 +45,5 @@ Buildings are defined by the tiles that make them up
 A tile can be in 0 or 1 buildings at any time
 Buildings have a type
 
-AI inputs are all considered when creature needs to think
-These inputs are combined with the creature's AI behavior weights to determine a behavior to use
-
 AI behaviors include things like:
 What kind of tile to look for and move to (e.g., it is daytime and a human with a job moves to the nearest building with a type that matches that job
