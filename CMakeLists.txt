@@ -2,10 +2,13 @@ cmake_minimum_required(VERSION 3.2.2)
 project(monsters)
 
 set(SOURCE_FILES
+ai_choice.cpp
 ai_goal.cpp
 attack.cpp
 button_events_game.cpp
 console_commands_defs.cpp
+consumable_manager.cpp
+consumable_type.cpp
 counter.cpp
 creature.cpp
 creature_ai.cpp

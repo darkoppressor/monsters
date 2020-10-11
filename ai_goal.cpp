@@ -10,12 +10,8 @@ using namespace std;
 AiGoal::AiGoal () {
     setNone();
 }
-String AiGoal::getType () const {
-    if (type == Type::attackCreatureMelee) {
-        return "attackCreatureMelee";
-    } else {
-        return "none";
-    }
+AiGoal::Type AiGoal::getType () const {
+    return type;
 }
 Index AiGoal::getTargetIndex () const {
     return targetIndex;
@@ -25,11 +21,24 @@ void AiGoal::setNone () {
     type = Type::none;
     targetIndex = 0;
 }
+void AiGoal::setUseHealingItem () {
+    type = Type::useHealingItem;
+    targetIndex = 0;
+}
 void AiGoal::setAttackCreatureMelee (const Index targetIndex) {
     type = Type::attackCreatureMelee;
     this->targetIndex = targetIndex;
 }
 
+String AiGoal::getTypeString () const {
+    if (type == Type::useHealingItem) {
+        return "useHealingItem";
+    } else if (type == Type::attackCreatureMelee) {
+        return "attackCreatureMelee";
+    } else {
+        return "none";
+    }
+}
 bool AiGoal::exists () const {
     return type != Type::none;
 }
@@ -38,8 +47,10 @@ void AiGoal::handleCreatureDeath (const Index index) {
         setNone();
     }
 }
-bool AiGoal::isValid () const {
-    if (type == Type::attackCreatureMelee) {
+bool AiGoal::isValid (const ConsumableManager& consumables) const {
+    if (type == Type::useHealingItem) {
+        return consumables.hasHealingItem();
+    } else if (type == Type::attackCreatureMelee) {
         return Game::getCreature(targetIndex).isAlive();
     } else {
         return false;

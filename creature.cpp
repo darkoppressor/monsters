@@ -153,6 +153,9 @@ const Attack& Creature::getAttack () const {
 EquipmentManager& Creature::getEquipment () {
     return equipment;
 }
+ConsumableManager& Creature::getConsumables () {
+    return consumables;
+}
 
 Health Creature::getMaximumHealth () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -190,6 +193,16 @@ PixelBox Creature::getSight () const {
     PixelBox box = getBox();
 
     return PixelBox(box.center_x() - sightRange, box.center_y() - sightRange, sightRange * 2.0, sightRange * 2.0);
+}
+
+void Creature::heal (Health healing) {
+    if (healing > 0) {
+        health += healing;
+
+        if (health > getMaximumHealth()) {
+            health = getMaximumHealth();
+        }
+    }
 }
 
 void Creature::meleeAttack (const Index index, const Index creatureIndex) {

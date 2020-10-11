@@ -1,5 +1,6 @@
 # Equipment
 
+* Equipment has a display name
 * Equipment has a slot
 > * Melee weapon
 

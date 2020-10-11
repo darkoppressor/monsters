@@ -5,8 +5,12 @@ AI inputs are considered when a Creature needs to think. These inputs are combin
 
 ##  Do nothing
 
-The creature simply does nothing.
+The Creature simply does nothing.
+
+## Use a healing item
+
+The Creature uses a healing item.
 
 ## Attack creature with melee
 
-The creature attempts to move to the target creature and attack it.
+The Creature attempts to move to the target Creature and attack it.

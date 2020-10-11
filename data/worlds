@@ -64,4 +64,11 @@
 		maximumDamage:2
 		range:5
 	</equipment>
+
+	<consumable>
+		name:medkit
+		displayName:Medkit
+		maximum:1
+		healing:10
+	</consumable>
 </world>

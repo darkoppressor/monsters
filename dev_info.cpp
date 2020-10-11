@@ -35,7 +35,7 @@ void Engine::render_dev_info () {
             msg += "  Race: " + creature.getRace() + "\n";
             msg += "  Faction: " + creature.getFaction() + "\n";
             msg += "  Goal:\n";
-            msg += "    Type: " + creature.getGoal().getType() + "\n";
+            msg += "    Type: " + creature.getGoal().getTypeString() + "\n";
             msg += "    Target index: " + Strings::num_to_string(creature.getGoal().getTargetIndex()) + "\n";
             msg += "  Attack:\n";
             msg += "    Cooling down: " +
@@ -50,6 +50,12 @@ void Engine::render_dev_info () {
             msg += "    Melee weapon: " +
                    (creature.getEquipment().hasMeleeWeapon() ? creature.getEquipment().getMeleeWeapon().displayName :
                     "not equipped") + "\n";
+            msg += "  Consumables:\n";
+
+            for (const auto& consumable : creature.getConsumables().getKeys()) {
+                msg += "    " + consumable + ": " +
+                       Strings::num_to_string(creature.getConsumables().getItemCount(consumable)) + "\n";
+            }
         }
     }
 

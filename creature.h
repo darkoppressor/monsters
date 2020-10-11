@@ -12,6 +12,9 @@
 #include "relationship.h"
 #include "damage.h"
 #include "equipment_manager.h"
+#include "consumable_manager.h"
+#include "creature_target.h"
+#include "ai_choice.h"
 
 class Damage;
 
@@ -23,6 +26,7 @@ class Creature: public PhysicsObject {
         AiGoal goal;
         Attack attack;
         EquipmentManager equipment;
+        ConsumableManager consumables;
 
         Pixels getCollisionReduction() const;
         double getMass() const;
@@ -47,6 +51,7 @@ class Creature: public PhysicsObject {
         const AiGoal& getGoal() const;
         const Attack& getAttack() const;
         EquipmentManager& getEquipment();
+        ConsumableManager& getConsumables();
 
         Health getMaximumHealth() const;
         Health getSmashingDefense() const;
@@ -56,6 +61,8 @@ class Creature: public PhysicsObject {
         bool isAlive() const;
         PixelBox getSight() const;
 
+        void heal(Health healing);
+
         void meleeAttack(const Index index, const Index creatureIndex);
         // Returns counterattack damage
         Damage takeDamage(const Index index, const Damage& damage);
@@ -63,6 +70,8 @@ class Creature: public PhysicsObject {
 
         void handleCreatureDeath(const Index index);
         bool canCheckForAiGoal(const Index index) const;
+        void considerUsingHealingItem(List<AiChoice>& choices);
+        List<CreatureTarget> considerAttackingCreature(List<AiChoice>& choices, const Index index);
         void think(const Index index);
         void act(const Index index);
         void doNothing();

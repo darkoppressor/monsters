@@ -6,11 +6,13 @@
 #define ai_goal_h
 
 #include "base_types.h"
+#include "consumable_manager.h"
 
 class AiGoal {
     public:
         enum class Type : uint8 {
             none,
+            useHealingItem,
             attackCreatureMelee
         };
     private:
@@ -18,15 +20,17 @@ class AiGoal {
         Index targetIndex;
     public:
         AiGoal ();
-        String getType() const;
+        Type getType() const;
         Index getTargetIndex() const;
 
         void setNone();
+        void setUseHealingItem();
         void setAttackCreatureMelee(const Index targetIndex);
 
+        String getTypeString() const;
         bool exists() const;
         void handleCreatureDeath(const Index index);
-        bool isValid() const;
+        bool isValid(const ConsumableManager& consumables) const;
         PixelCoords getTargetPosition() const;
 };
 

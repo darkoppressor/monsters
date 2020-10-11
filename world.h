@@ -9,6 +9,7 @@
 #include "race_category.h"
 #include "faction.h"
 #include "equipment_type.h"
+#include "consumable_type.h"
 
 class World {
     public:
@@ -17,6 +18,7 @@ class World {
         UnorderedMap<String, RaceCategory> raceCategories;
         UnorderedMap<String, Faction> factions;
         UnorderedMap<String, EquipmentType> equipment;
+        UnorderedMap<String, ConsumableType> consumables;
 
         World ();
 };

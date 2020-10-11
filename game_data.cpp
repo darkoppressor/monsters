@@ -130,6 +130,8 @@ void Game_Data::loadWorld (File_IO_Load* load) {
             i = loadFaction(lines, i + 1, world);
         } else if (Data_Reader::check_prefix(line, "<equipment>")) {
             i = loadEquipmentType(lines, i + 1, world);
+        } else if (Data_Reader::check_prefix(line, "<consumable>")) {
+            i = loadConsumableType(lines, i + 1, world);
         }
     }
 
@@ -222,6 +224,33 @@ size_t Game_Data::loadEquipmentType (vector<string>& lines, size_t lineIndex, Wo
     return lines.size() - 1;
 }
 
+size_t Game_Data::loadConsumableType (vector<string>& lines, size_t lineIndex, World& world) {
+    String name = "";
+    ConsumableType consumable;
+
+    for (size_t i = lineIndex; i < lines.size(); i++) {
+        string& line = lines[i];
+
+        if (Data_Reader::check_prefix(line, "name:")) {
+            name = line;
+        } else if (Data_Reader::check_prefix(line, "displayName:")) {
+            consumable.displayName = line;
+        } else if (Data_Reader::check_prefix(line, "maximum:")) {
+            consumable.maximum = Strings::string_to_unsigned_long(line);
+        } else if (Data_Reader::check_prefix(line, "healing:")) {
+            consumable.healing = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "</consumable>")) {
+            world.consumables[name] = consumable;
+
+            return i;
+        }
+    }
+
+    world.consumables[name] = consumable;
+
+    return lines.size() - 1;
+}
+
 const World& Game_Data::getWorld (const String& name) {
     if (worlds.count(name)) {
         return worlds[name];
@@ -260,6 +289,17 @@ const EquipmentType& Game_Data::getEquipmentType (const String& worldName, const
         return world.equipment.at(name);
     } else {
         Log::add_error("Error accessing equipment type '" + name + "' for world '" + worldName + "'");
+        Engine::quit();
+    }
+}
+
+const ConsumableType& Game_Data::getConsumableType (const String& worldName, const String& name) {
+    const World& world = getWorld(worldName);
+
+    if (world.consumables.count(name)) {
+        return world.consumables.at(name);
+    } else {
+        Log::add_error("Error accessing consumable type '" + name + "' for world '" + worldName + "'");
         Engine::quit();
     }
 }
