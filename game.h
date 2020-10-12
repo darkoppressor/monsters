@@ -8,6 +8,7 @@
 #include "base_types.h"
 #include "tile.h"
 #include "creature.h"
+#include "item.h"
 
 #include <rng.h>
 
@@ -18,7 +19,10 @@ class Game {
         static String worldName;
         static List<List<Tile>> tiles;
         static List<Creature> creatures;
-        static Quad quadtree;
+        static List<Item> items;
+        static List<Item> newItems;
+        static Quad creatureQuadtree;
+        static Quad itemQuadtree;
     public:
         static RNG& getRng();
         static uint32 getFrame();
@@ -30,7 +34,11 @@ class Game {
         static Index getCreatureCount();
         static Creature& getCreature(const Index index);
         static void handleCreatureDeath(const Index index);
-        static const Quad& getQuadtree();
+        static Item& getItem(const Index index);
+        static void addEquipment(const TileCoords& position, const String& item);
+        static void addConsumable(const TileCoords& position, const String& item);
+        static const Quad& getCreatureQuadtree();
+        static const Quad& getItemQuadtree();
         static void clear_world();
         static void generate_world();
         static void tick();

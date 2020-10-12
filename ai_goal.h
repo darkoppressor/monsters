@@ -13,7 +13,8 @@ class AiGoal {
         enum class Type : uint8 {
             none,
             useHealingItem,
-            attackCreatureMelee
+            attackCreatureMelee,
+            getItem
         };
     private:
         Type type;
@@ -26,6 +27,7 @@ class AiGoal {
         void setNone();
         void setUseHealingItem();
         void setAttackCreatureMelee(const Index targetIndex);
+        void setGetItem(const Index targetIndex);
 
         String getTypeString() const;
         bool exists() const;

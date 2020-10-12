@@ -29,6 +29,8 @@ game_data.cpp
 game_input_defs.cpp
 game_manager_defs.cpp
 game_options.cpp
+item.cpp
+item_target.cpp
 main.cpp
 network_game.cpp
 physics_object.cpp

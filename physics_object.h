@@ -24,6 +24,7 @@ class PhysicsObject {
     public:
         PhysicsObject (const TileCoords& position, const String& sprite);
         PixelCoords getPosition() const;
+        TileCoords getTilePosition() const;
         void setSprite(const String& sprite);
 
         PixelBox getBox() const;

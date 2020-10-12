@@ -8,6 +8,7 @@ using namespace std;
 
 ConsumableType::ConsumableType () {
     displayName = "";
+    sprite = "";
     maximum = 0u;
     healing = 0;
 }

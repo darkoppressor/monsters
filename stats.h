@@ -23,6 +23,7 @@ class Stats {
         static const Health NO_SMASHING_DEFENSE;
         static const Health NO_SLASHING_DEFENSE;
         static const Health NO_STABBING_DEFENSE;
+        static const Tiles NO_GET_ITEM_RANGE;
         static const Tiles NO_SIGHT_RANGE;
         // kilograms
         double mass;
@@ -44,6 +45,8 @@ class Stats {
         Health smashingDefense;
         Health slashingDefense;
         Health stabbingDefense;
+        // tiles
+        Tiles getItemRange;
         // tiles
         Tiles sightRange;
         bool definesUndead;

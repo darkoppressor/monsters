@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void ConsumableManager::add (const String& item) {
+void ConsumableManager::add (const String& item, const TileCoords& position) {
     const ConsumableType& consumableType = Game_Data::getConsumableType(Game::getWorldName(), item);
 
     if (!consumables.count(item)) {
@@ -16,7 +16,7 @@ void ConsumableManager::add (const String& item) {
     } else if (consumables.at(item) < consumableType.maximum) {
         consumables.at(item) = consumables.at(item) + 1;
     } else {
-        // QQQ Drop item
+        Game::addConsumable(position, item);
     }
 }
 
@@ -35,6 +35,11 @@ Items ConsumableManager::getItemCount (const String& item) const {
     } else {
         return 0u;
     }
+}
+
+bool ConsumableManager::canHold (const String& item) const {
+    return !consumables.count(item) ||
+           consumables.at(item) < Game_Data::getConsumableType(Game::getWorldName(), item).maximum;
 }
 
 bool ConsumableManager::hasHealingItem () const {

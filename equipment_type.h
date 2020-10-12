@@ -10,6 +10,7 @@
 class EquipmentType {
     public:
         String displayName;
+        String sprite;
         String slot;
         double mass;
         String damageType;
@@ -18,6 +19,7 @@ class EquipmentType {
         Tiles range;
 
         EquipmentType ();
+        bool operator> (const EquipmentType& equipmentType) const;
 };
 
 #endif

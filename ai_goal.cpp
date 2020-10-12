@@ -29,12 +29,18 @@ void AiGoal::setAttackCreatureMelee (const Index targetIndex) {
     type = Type::attackCreatureMelee;
     this->targetIndex = targetIndex;
 }
+void AiGoal::setGetItem (const Index targetIndex) {
+    type = Type::getItem;
+    this->targetIndex = targetIndex;
+}
 
 String AiGoal::getTypeString () const {
     if (type == Type::useHealingItem) {
         return "useHealingItem";
     } else if (type == Type::attackCreatureMelee) {
         return "attackCreatureMelee";
+    } else if (type == Type::getItem) {
+        return "getItem";
     } else {
         return "none";
     }
@@ -52,6 +58,8 @@ bool AiGoal::isValid (const ConsumableManager& consumables) const {
         return consumables.hasHealingItem();
     } else if (type == Type::attackCreatureMelee) {
         return Game::getCreature(targetIndex).isAlive();
+    } else if (type == Type::getItem) {
+        return Game::getItem(targetIndex).exists();
     } else {
         return false;
     }
@@ -59,6 +67,8 @@ bool AiGoal::isValid (const ConsumableManager& consumables) const {
 PixelCoords AiGoal::getTargetPosition () const {
     if (type == Type::attackCreatureMelee) {
         return Game::getCreature(targetIndex).getPosition();
+    } else if (type == Type::getItem) {
+        return Game::getItem(targetIndex).getPosition();
     } else {
         return PixelCoords();
     }

@@ -96,6 +96,10 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
         stats.stabbingDefense = Strings::string_to_long(line);
 
         return true;
+    } else if (Data_Reader::check_prefix(line, "getItemRange:")) {
+        stats.getItemRange = Strings::string_to_long(line);
+
+        return true;
     } else if (Data_Reader::check_prefix(line, "sightRange:")) {
         stats.sightRange = Strings::string_to_long(line);
 
@@ -200,6 +204,8 @@ size_t Game_Data::loadEquipmentType (vector<string>& lines, size_t lineIndex, Wo
             name = line;
         } else if (Data_Reader::check_prefix(line, "displayName:")) {
             equipment.displayName = line;
+        } else if (Data_Reader::check_prefix(line, "sprite:")) {
+            equipment.sprite = line;
         } else if (Data_Reader::check_prefix(line, "slot:")) {
             equipment.slot = line;
         } else if (Data_Reader::check_prefix(line, "mass:")) {
@@ -235,6 +241,8 @@ size_t Game_Data::loadConsumableType (vector<string>& lines, size_t lineIndex, W
             name = line;
         } else if (Data_Reader::check_prefix(line, "displayName:")) {
             consumable.displayName = line;
+        } else if (Data_Reader::check_prefix(line, "sprite:")) {
+            consumable.sprite = line;
         } else if (Data_Reader::check_prefix(line, "maximum:")) {
             consumable.maximum = Strings::string_to_unsigned_long(line);
         } else if (Data_Reader::check_prefix(line, "healing:")) {

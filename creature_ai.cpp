@@ -4,12 +4,15 @@
 
 #include "creature.h"
 #include "game.h"
+#include "game_data.h"
 #include "game_constants.h"
 
 #include <engine.h>
 #include <engine_math.h>
 #include <collision.h>
 #include <sorting.h>
+// QQQ
+#include <log.h>
 
 using namespace std;
 
@@ -30,7 +33,7 @@ List<CreatureTarget> Creature::considerAttackingCreature (List<AiChoice>& choice
     List<Index> nearbyCreatures;
     PixelBox sight = getSight();
 
-    Game::getQuadtree().get_objects(nearbyCreatures, sight);
+    Game::getCreatureQuadtree().get_objects(nearbyCreatures, sight);
     List<CreatureTarget> validTargets;
     Indexes seen;
 
@@ -57,11 +60,55 @@ List<CreatureTarget> Creature::considerAttackingCreature (List<AiChoice>& choice
 
     return validTargets;
 }
+bool Creature::isItemDesired (const Item& item) {
+    if (item.isEquipment()) {
+        const EquipmentType& equipmentType = Game_Data::getEquipmentType(Game::getWorldName(), item.getType());
+
+        if (equipmentType.slot == "meleeWeapon") {
+            if (!equipment.hasMeleeWeapon() || equipmentType > equipment.getMeleeWeapon()) {
+                return true;
+            }
+        }
+    } else {
+        if (consumables.canHold(item.getType())) {
+            return true;
+        }
+    }
+
+    return false;
+}
+List<ItemTarget> Creature::considerGettingItem (List<AiChoice>& choices) {
+    List<Index> nearbyItems;
+    PixelBox sight = getSight();
+
+    Game::getItemQuadtree().get_objects(nearbyItems, sight);
+    List<ItemTarget> validTargets;
+    Indexes seen;
+
+    for (const auto itemIndex : nearbyItems) {
+        if (!seen.count(itemIndex)) {
+            seen.emplace(itemIndex);
+            const Item& item = Game::getItem(itemIndex);
+
+            if (item.exists() && isItemDesired(item) && Collision::check_rect(sight, item.getBox())) {
+                Pixels distanceToItem = Math::get_distance_between_points(getPosition(), item.getPosition());
+                validTargets.push_back(ItemTarget(itemIndex, distanceToItem));
+            }
+        }
+    }
+
+    if (validTargets.size() > 0) {
+        choices.push_back(AiChoice(AiGoal::Type::getItem, 0));
+    }
+
+    return validTargets;
+}
 void Creature::think (const Index index) {
-    if (isAlive() && canCheckForAiGoal(index)) {
+    if (isAlive() && !goal.exists() && canCheckForAiGoal(index)) {
         List<AiChoice> choices;
         considerUsingHealingItem(choices);
-        List<CreatureTarget> validTargets = considerAttackingCreature(choices, index);
+        List<CreatureTarget> validCreatureTargets = considerAttackingCreature(choices, index);
+        List<ItemTarget> validItemTargets = considerGettingItem(choices);
 
         if (choices.size() > 0) {
             Sorting::quick_sort(choices);
@@ -70,11 +117,17 @@ void Creature::think (const Index index) {
             if (choices[choiceIndex].getGoalType() == AiGoal::Type::useHealingItem) {
                 goal.setUseHealingItem();
             } else if (choices[choiceIndex].getGoalType() == AiGoal::Type::attackCreatureMelee) {
-                Sorting::quick_sort(validTargets);
+                Sorting::quick_sort(validCreatureTargets);
                 Index validTargetIndex = Game::getRng().weighted_random_range(0,
-                                                                              validTargets.size() - 1, 0,
+                                                                              validCreatureTargets.size() - 1, 0,
                                                                               RNG::Weight::NORMAL);
-                goal.setAttackCreatureMelee(validTargets[validTargetIndex].getIndex());
+                goal.setAttackCreatureMelee(validCreatureTargets[validTargetIndex].getIndex());
+            } else if (choices[choiceIndex].getGoalType() == AiGoal::Type::getItem) {
+                Sorting::quick_sort(validItemTargets);
+                Index validTargetIndex = Game::getRng().weighted_random_range(0,
+                                                                              validItemTargets.size() - 1, 0,
+                                                                              RNG::Weight::NORMAL);
+                goal.setGetItem(validItemTargets[validTargetIndex].getIndex());
             }
         }
     }
@@ -102,6 +155,26 @@ void Creature::act (const Index index) {
                         } else if (attack.isCooled()) {
                             startMeleeAttack();
                         }
+                    } else {
+                        applyMoveForce(Math::get_angle_to_point(getPosition(), goal.getTargetPosition()));
+                    }
+                } else if (goal.getType() == AiGoal::Type::getItem) {
+                    if (Math::get_distance_between_points(getPosition(),
+                                                          goal.getTargetPosition()) <=
+                        getGetItemRange() * Game_Constants::TILE_SIZE) {
+                        brake();
+                        Item& item = Game::getItem(goal.getTargetIndex());
+
+                        if (item.isEquipment()) {
+                            equipment.equip(item.getType(), getTilePosition());
+                        } else {
+                            // QQQ
+                            Log::add_log("Consumable added");
+                            consumables.add(item.getType(), getTilePosition());
+                        }
+
+                        item.collect();
+                        goal.setNone();
                     } else {
                         applyMoveForce(Math::get_angle_to_point(getPosition(), goal.getTargetPosition()));
                     }

@@ -111,6 +111,12 @@ Count Creature::getMeleeAttackPreparation () const {
            Stats::NO_MELEE_ATTACK_PREPARATION ? race.stats.meleeAttackPreparation : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.meleeAttackPreparation;
 }
+Tiles Creature::getGetItemRange () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.getItemRange != Stats::NO_GET_ITEM_RANGE ? race.stats.getItemRange : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.getItemRange;
+}
 Tiles Creature::getSightRange () const {
     const Race& race = Game_Data::getRace(this->race);
 

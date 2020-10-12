@@ -19,6 +19,7 @@
 		smashingDefense:0
 		slashingDefense:0
 		stabbingDefense:0
+		getItemRange:2
 		sightRange:20
 	</raceCategory>
 
@@ -38,6 +39,7 @@
 		smashingDefense:0
 		slashingDefense:0
 		stabbingDefense:0
+		getItemRange:2
 		sightRange:10
 		undead:true
 	</raceCategory>
@@ -57,6 +59,7 @@
 	<equipment>
 		name:crowbar
 		displayName:Crowbar
+		sprite:crowbar
 		slot:meleeWeapon
 		mass:2.3
 		damageType:smashing
@@ -68,6 +71,7 @@
 	<consumable>
 		name:medkit
 		displayName:Medkit
+		sprite:medkit
 		maximum:1
 		healing:10
 	</consumable>

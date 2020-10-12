@@ -25,6 +25,9 @@ PhysicsObject::PhysicsObject (const TileCoords& position, const String& sprite) 
 PixelCoords PhysicsObject::getPosition () const {
     return position;
 }
+TileCoords PhysicsObject::getTilePosition () const {
+    return TileCoords(position.x / Game_Constants::TILE_SIZE, position.y / Game_Constants::TILE_SIZE);
+}
 void PhysicsObject::setSprite (const String& sprite) {
     this->sprite.set_name(sprite);
 }

@@ -20,6 +20,7 @@ const Count Stats::NO_MELEE_ATTACK_PREPARATION = 0u;
 const Health Stats::NO_SMASHING_DEFENSE = -1;
 const Health Stats::NO_SLASHING_DEFENSE = -1;
 const Health Stats::NO_STABBING_DEFENSE = -1;
+const Tiles Stats::NO_GET_ITEM_RANGE = 0;
 const Tiles Stats::NO_SIGHT_RANGE = 0;
 
 Stats::Stats () {
@@ -37,6 +38,7 @@ Stats::Stats () {
     smashingDefense = NO_SMASHING_DEFENSE;
     slashingDefense = NO_SLASHING_DEFENSE;
     stabbingDefense = NO_STABBING_DEFENSE;
+    getItemRange = NO_GET_ITEM_RANGE;
     sightRange = NO_SIGHT_RANGE;
     definesUndead = false;
     undead = false;

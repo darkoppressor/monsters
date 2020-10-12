@@ -10,6 +10,7 @@
 class ConsumableType {
     public:
         String displayName;
+        String sprite;
         Items maximum;
         Health healing;
 

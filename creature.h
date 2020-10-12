@@ -15,6 +15,8 @@
 #include "consumable_manager.h"
 #include "creature_target.h"
 #include "ai_choice.h"
+#include "item_target.h"
+#include "item.h"
 
 class Damage;
 
@@ -39,6 +41,7 @@ class Creature: public PhysicsObject {
         Tiles getMeleeAttackRange() const;
         Count getMeleeAttackCooldown() const;
         Count getMeleeAttackPreparation() const;
+        Tiles getGetItemRange() const;
         Tiles getSightRange() const;
         bool isUndead() const;
 
@@ -72,6 +75,8 @@ class Creature: public PhysicsObject {
         bool canCheckForAiGoal(const Index index) const;
         void considerUsingHealingItem(List<AiChoice>& choices);
         List<CreatureTarget> considerAttackingCreature(List<AiChoice>& choices, const Index index);
+        bool isItemDesired(const Item& item);
+        List<ItemTarget> considerGettingItem(List<AiChoice>& choices);
         void think(const Index index);
         void act(const Index index);
         void doNothing();

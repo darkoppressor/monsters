@@ -18,7 +18,7 @@ class EquipmentManager {
 
         double getMass() const;
 
-        void equip(const String& item);
+        void equip(const String& item, const TileCoords& position);
 };
 
 #endif

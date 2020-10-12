@@ -28,12 +28,12 @@ double EquipmentManager::getMass () const {
     return mass;
 }
 
-void EquipmentManager::equip (const String& item) {
+void EquipmentManager::equip (const String& item, const TileCoords& position) {
     const EquipmentType& equipmentType = Game_Data::getEquipmentType(Game::getWorldName(), item);
 
     if (equipmentType.slot == "meleeWeapon") {
         if (hasMeleeWeapon()) {
-            // QQQ Drop current item
+            Game::addEquipment(position, item);
         }
 
         meleeWeapon = item;

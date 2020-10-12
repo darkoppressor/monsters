@@ -8,10 +8,14 @@ using namespace std;
 
 EquipmentType::EquipmentType () {
     displayName = "";
+    sprite = "";
     slot = "";
     mass = 0.0;
     damageType = "";
     minimumDamage = 0;
     maximumDamage = 0;
     range = 0;
+}
+bool EquipmentType::operator> (const EquipmentType& equipmentType) const {
+    return (minimumDamage + maximumDamage) / 2 > (equipmentType.minimumDamage + equipmentType.maximumDamage) / 2;
 }

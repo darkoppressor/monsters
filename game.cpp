@@ -21,7 +21,10 @@ uint32 Game::frame = 0;
 String Game::worldName = "";
 List<List<Tile>> Game::tiles;
 List<Creature> Game::creatures;
-Quad Game::quadtree;
+List<Item> Game::items;
+List<Item> Game::newItems;
+Quad Game::creatureQuadtree;
+Quad Game::itemQuadtree;
 
 RNG& Game::getRng () {
     return rng;
@@ -62,8 +65,25 @@ void Game::handleCreatureDeath (const Index index) {
         creature.handleCreatureDeath(index);
     }
 }
-const Quad& Game::getQuadtree () {
-    return quadtree;
+Item& Game::getItem (const Index index) {
+    if (index < items.size()) {
+        return items[index];
+    } else {
+        Log::add_error("Error accessing item '" + Strings::num_to_string(index) + "'");
+        Engine::quit();
+    }
+}
+void Game::addEquipment (const TileCoords& position, const String& item) {
+    newItems.push_back(Item(position, item, true));
+}
+void Game::addConsumable (const TileCoords& position, const String& item) {
+    newItems.push_back(Item(position, item, false));
+}
+const Quad& Game::getCreatureQuadtree () {
+    return creatureQuadtree;
+}
+const Quad& Game::getItemQuadtree () {
+    return itemQuadtree;
 }
 
 void Game::clear_world () {
@@ -71,7 +91,10 @@ void Game::clear_world () {
     worldName = "";
     tiles.clear();
     creatures.clear();
-    quadtree.clear_tree();
+    items.clear();
+    newItems.clear();
+    creatureQuadtree.clear_tree();
+    itemQuadtree.clear_tree();
 }
 
 void Game::generate_world () {
@@ -80,28 +103,38 @@ void Game::generate_world () {
     worldName = "default";
     tiles.resize(100, List<Tile>(100));
 
-    for (size_t i = 0; i < 25; i++) {
+    for (size_t i = 0; i < 1; i++) {
         creatures.push_back(Creature(TileCoords(rng.random_range(0, 100), rng.random_range(0, 100)), "human",
                                      "humanCitizens"));
-        creatures.back().getEquipment().equip("crowbar");
-        creatures.back().getConsumables().add("medkit");
+        creatures.back().getEquipment().equip("crowbar", creatures.back().getTilePosition());
+        // creatures.back().getConsumables().add("medkit", creatures.back().getTilePosition());
     }
 
-    for (size_t i = 0; i < 50; i++) {
+    for (size_t i = 0; i < 0; i++) {
         creatures.push_back(Creature(TileCoords(rng.random_range(0, 100), rng.random_range(0,
                                                                                            100)), "zombie", "zombies"));
     }
 
-    quadtree.setup(10, 5, 0, Collision_Rect<Pixels>(0.0, 0.0, getWorldWidth(), getWorldHeight()));
+    for (size_t i = 0; i < 25; i++) {
+        items.push_back(Item(TileCoords(rng.random_range(0, 100), rng.random_range(0, 100)), "medkit", false));
+    }
+
+    creatureQuadtree.setup(10, 5, 0, Collision_Rect<Pixels>(0.0, 0.0, getWorldWidth(), getWorldHeight()));
+    itemQuadtree.setup(10, 5, 0, Collision_Rect<Pixels>(0.0, 0.0, getWorldWidth(), getWorldHeight()));
 }
 
 void Game::tick () {}
 
 void Game::ai () {
-    quadtree.clear_tree();
+    creatureQuadtree.clear_tree();
+    itemQuadtree.clear_tree();
 
     for (Index i = 0; i < creatures.size(); i++) {
-        quadtree.insert_object(creatures[i].getBox(), i);
+        creatureQuadtree.insert_object(creatures[i].getBox(), i);
+    }
+
+    for (Index i = 0; i < items.size(); i++) {
+        itemQuadtree.insert_object(items[i].getBox(), i);
     }
 
     for (Index i = 0; i < creatures.size(); i++) {
@@ -121,6 +154,19 @@ void Game::movement () {
 }
 
 void Game::events () {
+    for (Index i = 0; i < items.size();) {
+        if (!items[i].exists()) {
+            items.erase(items.begin() + i);
+        } else {
+            i++;
+        }
+    }
+
+    while (newItems.size() > 0) {
+        items.push_back(newItems[0]);
+        newItems.erase(newItems.begin());
+    }
+
     ///Sound_Manager::set_listener(example_player.circle.x,example_player.circle.y,Game_Manager::camera_zoom);
 
     if (++frame == Engine::UPDATE_RATE) {
@@ -132,11 +178,19 @@ void Game::animate () {
     for (auto& creature : creatures) {
         creature.animate();
     }
+
+    for (auto& item : items) {
+        item.animate();
+    }
 }
 
 void Game::render () {
     for (const auto& creature : creatures) {
         creature.render();
+    }
+
+    for (const auto& item : items) {
+        item.render();
     }
 }
 
