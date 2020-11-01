@@ -6,6 +6,7 @@ ai_choice.cpp
 ai_goal.cpp
 attack.cpp
 button_events_game.cpp
+calendar.cpp
 console_commands_defs.cpp
 consumable_manager.cpp
 consumable_type.cpp
@@ -18,7 +19,6 @@ data_manager_defs.cpp
 dev_info.cpp
 directories_defs.cpp
 engine_glue.cpp
-equipment.cpp
 equipment_manager.cpp
 equipment_type.cpp
 faction.cpp
@@ -39,6 +39,7 @@ race.cpp
 relationship.cpp
 special_info.cpp
 stats.cpp
+tick.cpp
 tile.cpp
 version.cpp
 window_close_function.cpp

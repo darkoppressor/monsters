@@ -43,6 +43,18 @@ uint32 Creature::getCollisionSteps () const {
            Stats::NO_COLLISION_STEPS ? race.stats.collisionSteps : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.collisionSteps;
 }
+Health Creature::getHunger () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.hunger != Stats::NO_HUNGER ? race.stats.hunger : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.hunger;
+}
+Health Creature::getThirst () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.thirst != Stats::NO_THIRST ? race.stats.thirst : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.thirst;
+}
 String Creature::getMeleeAttackDamageType () const {
     if (equipment.hasMeleeWeapon()) {
         return equipment.getMeleeWeapon().damageType;
@@ -129,6 +141,30 @@ bool Creature::isUndead () const {
     return race.stats.definesUndead ? race.stats.undead : Game_Data::getRaceCategory(Game::getWorldName(),
                                                                                      race.category).stats.undead;
 }
+bool Creature::canGetItems () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.definesCanGetItems ? race.stats.canGetItems : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.canGetItems;
+}
+bool Creature::canUseItems () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.definesCanUseItems ? race.stats.canUseItems : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.canUseItems;
+}
+bool Creature::hungers () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.definesHungers ? race.stats.hungers : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.hungers;
+}
+bool Creature::thirsts () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.definesThirsts ? race.stats.thirsts : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.thirsts;
+}
 
 const Relationship& Creature::getRelationship (const Creature& creature) const {
     return Game_Data::getFaction(Game::getWorldName(), this->faction).getRelationship(creature.getFaction());
@@ -139,6 +175,8 @@ Creature::Creature (const TileCoords& position, const String& race, const String
 {
     this->race = race;
     this->faction = faction;
+    food = getMaximumFood();
+    water = getMaximumWater();
     health = getMaximumHealth();
 }
 String Creature::getRace () const {
@@ -149,6 +187,12 @@ String Creature::getFaction () const {
 }
 Health Creature::getHealth () const {
     return health;
+}
+Health Creature::getFood () const {
+    return food;
+}
+Health Creature::getWater () const {
+    return water;
 }
 const AiGoal& Creature::getGoal () const {
     return goal;
@@ -168,6 +212,18 @@ Health Creature::getMaximumHealth () const {
 
     return race.stats.maximumHealth != Stats::NO_MAXIMUM_HEALTH ? race.stats.maximumHealth : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.maximumHealth;
+}
+Health Creature::getMaximumFood () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.maximumFood != Stats::NO_MAXIMUM_FOOD ? race.stats.maximumFood : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.maximumFood;
+}
+Health Creature::getMaximumWater () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.maximumWater != Stats::NO_MAXIMUM_WATER ? race.stats.maximumWater : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.maximumWater;
 }
 Health Creature::getSmashingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -201,12 +257,49 @@ PixelBox Creature::getSight () const {
     return PixelBox(box.center_x() - sightRange, box.center_y() - sightRange, sightRange * 2.0, sightRange * 2.0);
 }
 
-void Creature::heal (Health healing) {
-    if (healing > 0) {
-        health += healing;
+void Creature::hunger () {
+    if (isAlive() && hungers()) {
+        if (getHunger() >= food) {
+            food = 0;
+        } else {
+            food -= getHunger();
+        }
+    }
+}
+void Creature::thirst () {
+    if (isAlive() && thirsts()) {
+        if (getThirst() >= water) {
+            water = 0;
+        } else {
+            water -= getThirst();
+        }
+    }
+}
 
-        if (health > getMaximumHealth()) {
-            health = getMaximumHealth();
+void Creature::heal (Health health) {
+    if (health > 0) {
+        this->health += health;
+
+        if (this->health > getMaximumHealth()) {
+            this->health = getMaximumHealth();
+        }
+    }
+}
+void Creature::eat (Health food) {
+    if (food > 0) {
+        this->food += food;
+
+        if (this->food > getMaximumFood()) {
+            this->food = getMaximumFood();
+        }
+    }
+}
+void Creature::drink (Health water) {
+    if (water > 0) {
+        this->water += water;
+
+        if (this->water > getMaximumWater()) {
+            this->water = getMaximumWater();
         }
     }
 }
@@ -248,6 +341,8 @@ void Creature::die (const Index index) {
 
         if (world.deadBecomeRace.length() > 0) {
             race = world.deadBecomeRace;
+            food = getMaximumFood();
+            water = getMaximumWater();
             health = getMaximumHealth();
             setSprite(Game_Data::getRace(race).sprite);
         }

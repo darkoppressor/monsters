@@ -14,6 +14,10 @@ class Stats {
         static const double NO_MAXIMUM_SPEED;
         static const uint32 NO_COLLISION_STEPS;
         static const Health NO_MAXIMUM_HEALTH;
+        static const Health NO_MAXIMUM_FOOD;
+        static const Health NO_MAXIMUM_WATER;
+        static const Health NO_HUNGER;
+        static const Health NO_THIRST;
         static const String NO_MELEE_ATTACK_DAMAGE_TYPE;
         static const Health NO_MELEE_ATTACK_MINIMUM_DAMAGE;
         static const Health NO_MELEE_ATTACK_MAXIMUM_DAMAGE;
@@ -33,6 +37,12 @@ class Stats {
         double maximumSpeed;
         uint32 collisionSteps;
         Health maximumHealth;
+        Health maximumFood;
+        Health maximumWater;
+        // per calendar minute
+        Health hunger;
+        // per calendar minute
+        Health thirst;
         String meleeAttackDamageType;
         Health meleeAttackMinimumDamage;
         Health meleeAttackMaximumDamage;
@@ -51,6 +61,14 @@ class Stats {
         Tiles sightRange;
         bool definesUndead;
         bool undead;
+        bool definesCanGetItems;
+        bool canGetItems;
+        bool definesCanUseItems;
+        bool canUseItems;
+        bool definesHungers;
+        bool hungers;
+        bool definesThirsts;
+        bool thirsts;
 
         Stats ();
 };

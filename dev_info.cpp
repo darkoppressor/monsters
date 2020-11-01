@@ -32,6 +32,10 @@ void Engine::render_dev_info () {
             msg += "  Position: " + Strings::num_to_string(box.x) + ", " + Strings::num_to_string(box.y) + "\n";
             msg += "  Health: " + Strings::num_to_string(creature.getHealth()) + "/" + Strings::num_to_string(
                 creature.getMaximumHealth()) + "\n";
+            msg += "  Food: " + Strings::num_to_string(creature.getFood()) + "/" + Strings::num_to_string(
+                creature.getMaximumFood()) + "\n";
+            msg += "  Water: " + Strings::num_to_string(creature.getWater()) + "/" + Strings::num_to_string(
+                creature.getMaximumWater()) + "\n";
             msg += "  Race: " + creature.getRace() + "\n";
             msg += "  Faction: " + creature.getFaction() + "\n";
             msg += "  Goal:\n";

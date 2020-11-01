@@ -42,27 +42,79 @@ bool ConsumableManager::canHold (const String& item) const {
            consumables.at(item) < Game_Data::getConsumableType(Game::getWorldName(), item).maximum;
 }
 
-bool ConsumableManager::hasHealingItem () const {
+bool ConsumableManager::hasHealthItem () const {
     for (auto& consumable : consumables) {
-        if (Game_Data::getConsumableType(Game::getWorldName(), consumable.first).healing > 0) {
+        if (Game_Data::getConsumableType(Game::getWorldName(), consumable.first).health > 0) {
             return true;
         }
     }
 
     return false;
 }
-Health ConsumableManager::useHealingItem () {
+Health ConsumableManager::useHealthItem () {
     for (auto& consumable : consumables) {
-        Health healing = Game_Data::getConsumableType(Game::getWorldName(), consumable.first).healing;
+        Health health = Game_Data::getConsumableType(Game::getWorldName(), consumable.first).health;
 
-        if (healing > 0) {
+        if (health > 0) {
             if (consumable.second == 1) {
                 consumables.erase(consumable.first);
             } else {
                 consumables.at(consumable.first) = consumables.at(consumable.first) - 1;
             }
 
-            return healing;
+            return health;
+        }
+    }
+
+    return 0;
+}
+bool ConsumableManager::hasFoodItem () const {
+    for (auto& consumable : consumables) {
+        if (Game_Data::getConsumableType(Game::getWorldName(), consumable.first).food > 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+Health ConsumableManager::useFoodItem () {
+    for (auto& consumable : consumables) {
+        Health food = Game_Data::getConsumableType(Game::getWorldName(), consumable.first).food;
+
+        if (food > 0) {
+            if (consumable.second == 1) {
+                consumables.erase(consumable.first);
+            } else {
+                consumables.at(consumable.first) = consumables.at(consumable.first) - 1;
+            }
+
+            return food;
+        }
+    }
+
+    return 0;
+}
+bool ConsumableManager::hasWaterItem () const {
+    for (auto& consumable : consumables) {
+        if (Game_Data::getConsumableType(Game::getWorldName(), consumable.first).water > 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+Health ConsumableManager::useWaterItem () {
+    for (auto& consumable : consumables) {
+        Health water = Game_Data::getConsumableType(Game::getWorldName(), consumable.first).water;
+
+        if (water > 0) {
+            if (consumable.second == 1) {
+                consumables.erase(consumable.first);
+            } else {
+                consumables.at(consumable.first) = consumables.at(consumable.first) - 1;
+            }
+
+            return water;
         }
     }
 

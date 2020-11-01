@@ -10,6 +10,10 @@
 		maximumSpeed:3.6
 		collisionSteps:1
 		maximumHealth:10
+		maximumFood:300
+		maximumWater:150
+		hunger:1
+		thirst:1
 		meleeAttackDamageType:smashing
 		meleeAttackMinimumDamage:1
 		meleeAttackMaximumDamage:2
@@ -21,6 +25,11 @@
 		stabbingDefense:0
 		getItemRange:2
 		sightRange:20
+		undead:false
+		canGetItems:true
+		canUseItems:true
+		hungers:true
+		thirsts:true
 	</raceCategory>
 
 	<raceCategory>
@@ -30,6 +39,10 @@
 		maximumSpeed:0.9
 		collisionSteps:1
 		maximumHealth:5
+		maximumFood:0
+		maximumWater:0
+		hunger:0
+		thirst:0
 		meleeAttackDamageType:smashing
 		meleeAttackMinimumDamage:2
 		meleeAttackMaximumDamage:3
@@ -42,6 +55,10 @@
 		getItemRange:2
 		sightRange:10
 		undead:true
+		canGetItems:false
+		canUseItems:false
+		hungers:false
+		thirsts:false
 	</raceCategory>
 
 	<faction>
@@ -73,6 +90,22 @@
 		displayName:Medkit
 		sprite:medkit
 		maximum:1
-		healing:10
+		health:10
+	</consumable>
+
+	<consumable>
+		name:cheeseburger
+		displayName:Cheeseburger
+		sprite:cheeseburger
+		maximum:2
+		food:150
+	</consumable>
+
+	<consumable>
+		name:waterBottle
+		displayName:Water bottle
+		sprite:waterBottle
+		maximum:2
+		water:75
 	</consumable>
 </world>

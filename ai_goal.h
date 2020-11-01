@@ -12,7 +12,9 @@ class AiGoal {
     public:
         enum class Type : uint8 {
             none,
-            useHealingItem,
+            useHealthItem,
+            useFoodItem,
+            useWaterItem,
             attackCreatureMelee,
             getItem
         };
@@ -25,13 +27,18 @@ class AiGoal {
         Index getTargetIndex() const;
 
         void setNone();
-        void setUseHealingItem();
+        void setUseHealthItem();
+        void setUseFoodItem();
+        void setUseWaterItem();
         void setAttackCreatureMelee(const Index targetIndex);
         void setGetItem(const Index targetIndex);
 
         String getTypeString() const;
         bool exists() const;
         void handleCreatureDeath(const Index index);
+        void handleCreatureDeletion(const Index index);
+        void handleItemCollection(const Index index);
+        void handleItemDeletion(const Index index);
         bool isValid(const ConsumableManager& consumables) const;
         PixelCoords getTargetPosition() const;
 };

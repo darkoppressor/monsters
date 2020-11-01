@@ -11,6 +11,10 @@ const double Stats::NO_MOVE_FORCE = -1.0;
 const double Stats::NO_MAXIMUM_SPEED = -1.0;
 const uint32 Stats::NO_COLLISION_STEPS = 0u;
 const Health Stats::NO_MAXIMUM_HEALTH = -1;
+const Health Stats::NO_MAXIMUM_FOOD = -1;
+const Health Stats::NO_MAXIMUM_WATER = -1;
+const Health Stats::NO_HUNGER = -1;
+const Health Stats::NO_THIRST = -1;
 const String Stats::NO_MELEE_ATTACK_DAMAGE_TYPE = "";
 const Health Stats::NO_MELEE_ATTACK_MINIMUM_DAMAGE = -1;
 const Health Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE = -1;
@@ -29,6 +33,10 @@ Stats::Stats () {
     maximumSpeed = NO_MAXIMUM_SPEED;
     collisionSteps = NO_COLLISION_STEPS;
     maximumHealth = NO_MAXIMUM_HEALTH;
+    maximumFood = NO_MAXIMUM_FOOD;
+    maximumWater = NO_MAXIMUM_WATER;
+    hunger = NO_HUNGER;
+    thirst = NO_THIRST;
     meleeAttackDamageType = NO_MELEE_ATTACK_DAMAGE_TYPE;
     meleeAttackMinimumDamage = NO_MELEE_ATTACK_MINIMUM_DAMAGE;
     meleeAttackMaximumDamage = NO_MELEE_ATTACK_MAXIMUM_DAMAGE;
@@ -42,4 +50,12 @@ Stats::Stats () {
     sightRange = NO_SIGHT_RANGE;
     definesUndead = false;
     undead = false;
+    definesCanGetItems = false;
+    canGetItems = false;
+    definesCanUseItems = false;
+    canUseItems = false;
+    definesHungers = false;
+    hungers = false;
+    definesThirsts = false;
+    thirsts = false;
 }

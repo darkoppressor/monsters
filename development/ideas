@@ -20,6 +20,13 @@ STILL NEED TO IMPLEMENT AI GOAL WEIGHTS
 For creatures:
 Add ranged attack stats
 
+Other potential damage types:
+Explosive
+Burning
+Ripping
+
+How might I implement things like thrown grenades and molotov cocktails?
+
 For example, humans might use some flocking behavior with other friendly humans, so that they coalesce into cooperating groups
 Or humans might attack zombies on sight or retreat from them
 
@@ -47,3 +54,22 @@ Buildings have a type
 
 AI behaviors include things like:
 What kind of tile to look for and move to (e.g., it is daytime and a human with a job moves to the nearest building with a type that matches that job
+
+Creatures need to be able to have a base that they defend and return to
+They don't have to have a base
+A base should be a simple tile and radius
+A creature picks its base based on various tile factors (and maybe nearby allied bases)
+A creature can abandon their base
+
+Creatures might have a preferred temperature
+Climate, time of day, weather, and tiles all combine to determine local temperature for a creature
+
+Creatures have sleep need
+Ticks down like other needs
+Refilled by sleeping
+Tiles have restful rating
+Creatures try to sleep on a closer, higher rating tile
+
+Tiles should be able to provide cover from ranged attacks
+Can I make creatures know how to use or bypass cover?
+If a creature is trying to close to attack a creature, it should consider its target's cover

@@ -14,6 +14,10 @@ using namespace std;
 double Game_Constants::PIXELS_TO_METERS=0.0;
 double Game_Constants::TILE_SIZE=0.0;
 uint32_t Game_Constants::AI_GOAL_SELECTION_PERIOD=0;
+uint16_t Game_Constants::TICKS_PER_MINUTE=0;
+uint16_t Game_Constants::MINUTES_PER_HOUR=0;
+uint16_t Game_Constants::HOURS_PER_DAY=0;
+uint32_t Game_Constants::MAXIMUM_DEAD_BODIES=0;
 /// END SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 
 void Game_Constants_Loader::set_game_constant (string name, string value) {
@@ -34,6 +38,18 @@ void Game_Constants_Loader::set_game_constant (string name, string value) {
     }
     else if(name=="ai_goal_selection_period"){
         Game_Constants::AI_GOAL_SELECTION_PERIOD=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ticks_per_minute"){
+        Game_Constants::TICKS_PER_MINUTE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="minutes_per_hour"){
+        Game_Constants::MINUTES_PER_HOUR=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="hours_per_day"){
+        Game_Constants::HOURS_PER_DAY=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="maximum_dead_bodies"){
+        Game_Constants::MAXIMUM_DEAD_BODIES=Strings::string_to_unsigned_long(value);
     }
     /// END SCRIPT-GENERATED CONSTANT SETUP
 }

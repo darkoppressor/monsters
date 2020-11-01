@@ -19,8 +19,11 @@ using namespace std;
 RNG Game::rng;
 uint32 Game::frame = 0;
 String Game::worldName = "";
+Calendar Game::calendar;
 List<List<Tile>> Game::tiles;
 List<Creature> Game::creatures;
+List<Creature> Game::newCreatures;
+uint32 Game::deadCreatures = 0;
 List<Item> Game::items;
 List<Item> Game::newItems;
 Quad Game::creatureQuadtree;
@@ -61,8 +64,17 @@ Creature& Game::getCreature (const Index index) {
     }
 }
 void Game::handleCreatureDeath (const Index index) {
+    deadCreatures++;
+
     for (auto& creature : creatures) {
         creature.handleCreatureDeath(index);
+    }
+}
+void Game::handleCreatureDeletion (const Index index) {
+    deadCreatures--;
+
+    for (auto& creature : creatures) {
+        creature.handleCreatureDeletion(index);
     }
 }
 Item& Game::getItem (const Index index) {
@@ -72,6 +84,19 @@ Item& Game::getItem (const Index index) {
         Log::add_error("Error accessing item '" + Strings::num_to_string(index) + "'");
         Engine::quit();
     }
+}
+void Game::handleItemCollection (const Index index) {
+    for (auto& creature : creatures) {
+        creature.handleItemCollection(index);
+    }
+}
+void Game::handleItemDeletion (const Index index) {
+    for (auto& creature : creatures) {
+        creature.handleItemDeletion(index);
+    }
+}
+void Game::addCreature (const TileCoords& position, const String& race, const String& faction) {
+    newCreatures.push_back(Creature(position, race, faction));
 }
 void Game::addEquipment (const TileCoords& position, const String& item) {
     newItems.push_back(Item(position, item, true));
@@ -89,8 +114,11 @@ const Quad& Game::getItemQuadtree () {
 void Game::clear_world () {
     frame = 0;
     worldName = "";
+    calendar.reset();
     tiles.clear();
     creatures.clear();
+    newCreatures.clear();
+    deadCreatures = 0;
     items.clear();
     newItems.clear();
     creatureQuadtree.clear_tree();
@@ -103,27 +131,64 @@ void Game::generate_world () {
     worldName = "default";
     tiles.resize(100, List<Tile>(100));
 
-    for (size_t i = 0; i < 1; i++) {
-        creatures.push_back(Creature(TileCoords(rng.random_range(0, 100), rng.random_range(0, 100)), "human",
-                                     "humanCitizens"));
-        creatures.back().getEquipment().equip("crowbar", creatures.back().getTilePosition());
-        // creatures.back().getConsumables().add("medkit", creatures.back().getTilePosition());
+    for (size_t i = 0; i < 25; i++) {
+        addCreature(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
+                                                                                          getWorldTileHeight())), "human",
+                    "humanCitizens");
+        newCreatures.back().getEquipment().equip("crowbar", newCreatures.back().getTilePosition());
+        newCreatures.back().getConsumables().add("medkit", newCreatures.back().getTilePosition());
+        newCreatures.back().getConsumables().add("cheeseburger", newCreatures.back().getTilePosition());
+        newCreatures.back().getConsumables().add("waterBottle", newCreatures.back().getTilePosition());
     }
 
-    for (size_t i = 0; i < 0; i++) {
-        creatures.push_back(Creature(TileCoords(rng.random_range(0, 100), rng.random_range(0,
-                                                                                           100)), "zombie", "zombies"));
+    for (size_t i = 0; i < 50; i++) {
+        addCreature(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
+                                                                                          getWorldTileHeight())), "zombie",
+                    "zombies");
+    }
+
+    for (size_t i = 0; i < 1; i++) {
+        addEquipment(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
+                                                                                           getWorldTileHeight())),
+                     "crowbar");
     }
 
     for (size_t i = 0; i < 25; i++) {
-        items.push_back(Item(TileCoords(rng.random_range(0, 100), rng.random_range(0, 100)), "medkit", false));
+        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
+                                                                                            getWorldTileHeight())),
+                      "medkit");
+    }
+
+    for (size_t i = 0; i < 10; i++) {
+        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
+                                                                                            getWorldTileHeight())),
+                      "cheeseburger");
+    }
+
+    for (size_t i = 0; i < 5; i++) {
+        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
+                                                                                            getWorldTileHeight())),
+                      "waterBottle");
     }
 
     creatureQuadtree.setup(10, 5, 0, Collision_Rect<Pixels>(0.0, 0.0, getWorldWidth(), getWorldHeight()));
     itemQuadtree.setup(10, 5, 0, Collision_Rect<Pixels>(0.0, 0.0, getWorldWidth(), getWorldHeight()));
 }
 
-void Game::tick () {}
+void Game::tick () {
+    Tick tick = calendar.tick();
+
+    if (tick.getType() == Tick::Type::minute) {
+        for (auto& creature : creatures) {
+            creature.hunger();
+            creature.thirst();
+        }
+    } else if (tick.getType() == Tick::Type::hour) {
+        // QQQ Does anything happen hourly?
+    } else if (tick.getType() == Tick::Type::day) {
+        // QQQ Does anything happen daily?
+    }
+}
 
 void Game::ai () {
     creatureQuadtree.clear_tree();
@@ -154,12 +219,27 @@ void Game::movement () {
 }
 
 void Game::events () {
+    for (Index i = 0; deadCreatures > Game_Constants::MAXIMUM_DEAD_BODIES && i < creatures.size();) {
+        if (!creatures[i].isAlive()) {
+            handleCreatureDeletion(i);
+            creatures.erase(creatures.begin() + i);
+        } else {
+            i++;
+        }
+    }
+
     for (Index i = 0; i < items.size();) {
         if (!items[i].exists()) {
+            handleItemDeletion(i);
             items.erase(items.begin() + i);
         } else {
             i++;
         }
+    }
+
+    while (newCreatures.size() > 0) {
+        creatures.push_back(newCreatures[0]);
+        newCreatures.erase(newCreatures.begin());
     }
 
     while (newItems.size() > 0) {

@@ -9,6 +9,7 @@
 #include "tile.h"
 #include "creature.h"
 #include "item.h"
+#include "calendar.h"
 
 #include <rng.h>
 
@@ -17,8 +18,11 @@ class Game {
         static RNG rng;
         static uint32 frame;
         static String worldName;
+        static Calendar calendar;
         static List<List<Tile>> tiles;
         static List<Creature> creatures;
+        static List<Creature> newCreatures;
+        static uint32 deadCreatures;
         static List<Item> items;
         static List<Item> newItems;
         static Quad creatureQuadtree;
@@ -34,7 +38,11 @@ class Game {
         static Index getCreatureCount();
         static Creature& getCreature(const Index index);
         static void handleCreatureDeath(const Index index);
+        static void handleCreatureDeletion(const Index index);
         static Item& getItem(const Index index);
+        static void handleItemCollection(const Index index);
+        static void handleItemDeletion(const Index index);
+        static void addCreature(const TileCoords& position, const String& race, const String& faction);
         static void addEquipment(const TileCoords& position, const String& item);
         static void addConsumable(const TileCoords& position, const String& item);
         static const Quad& getCreatureQuadtree();

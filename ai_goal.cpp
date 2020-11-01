@@ -21,8 +21,16 @@ void AiGoal::setNone () {
     type = Type::none;
     targetIndex = 0;
 }
-void AiGoal::setUseHealingItem () {
-    type = Type::useHealingItem;
+void AiGoal::setUseHealthItem () {
+    type = Type::useHealthItem;
+    targetIndex = 0;
+}
+void AiGoal::setUseFoodItem () {
+    type = Type::useFoodItem;
+    targetIndex = 0;
+}
+void AiGoal::setUseWaterItem () {
+    type = Type::useWaterItem;
     targetIndex = 0;
 }
 void AiGoal::setAttackCreatureMelee (const Index targetIndex) {
@@ -35,8 +43,12 @@ void AiGoal::setGetItem (const Index targetIndex) {
 }
 
 String AiGoal::getTypeString () const {
-    if (type == Type::useHealingItem) {
-        return "useHealingItem";
+    if (type == Type::useHealthItem) {
+        return "useHealthItem";
+    } else if (type == Type::useFoodItem) {
+        return "useFoodItem";
+    } else if (type == Type::useWaterItem) {
+        return "useWaterItem";
     } else if (type == Type::attackCreatureMelee) {
         return "attackCreatureMelee";
     } else if (type == Type::getItem) {
@@ -53,9 +65,28 @@ void AiGoal::handleCreatureDeath (const Index index) {
         setNone();
     }
 }
+void AiGoal::handleCreatureDeletion (const Index index) {
+    if (type == Type::attackCreatureMelee && targetIndex > index) {
+        targetIndex--;
+    }
+}
+void AiGoal::handleItemCollection (const Index index) {
+    if (type == Type::getItem && index == targetIndex) {
+        setNone();
+    }
+}
+void AiGoal::handleItemDeletion (const Index index) {
+    if (type == Type::getItem && targetIndex > index) {
+        targetIndex--;
+    }
+}
 bool AiGoal::isValid (const ConsumableManager& consumables) const {
-    if (type == Type::useHealingItem) {
-        return consumables.hasHealingItem();
+    if (type == Type::useHealthItem) {
+        return consumables.hasHealthItem();
+    } else if (type == Type::useFoodItem) {
+        return consumables.hasFoodItem();
+    } else if (type == Type::useWaterItem) {
+        return consumables.hasWaterItem();
     } else if (type == Type::attackCreatureMelee) {
         return Game::getCreature(targetIndex).isAlive();
     } else if (type == Type::getItem) {

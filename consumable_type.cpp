@@ -10,5 +10,7 @@ ConsumableType::ConsumableType () {
     displayName = "";
     sprite = "";
     maximum = 0u;
-    healing = 0;
+    health = 0;
+    food = 0;
+    water = 0;
 }

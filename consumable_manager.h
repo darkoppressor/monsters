@@ -19,8 +19,12 @@ class ConsumableManager {
 
         bool canHold(const String& item) const;
 
-        bool hasHealingItem() const;
-        Health useHealingItem();
+        bool hasHealthItem() const;
+        Health useHealthItem();
+        bool hasFoodItem() const;
+        Health useFoodItem();
+        bool hasWaterItem() const;
+        Health useWaterItem();
 };
 
 #endif

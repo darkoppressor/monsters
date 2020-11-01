@@ -12,7 +12,9 @@ class ConsumableType {
         String displayName;
         String sprite;
         Items maximum;
-        Health healing;
+        Health health;
+        Health food;
+        Health water;
 
         ConsumableType ();
 };

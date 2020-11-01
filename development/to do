@@ -1,19 +1,37 @@
-Consumable items can be food, water, or medical supplies
-Creatures have food and water needs
-These needs tick down over time
-These needs can be replenished by using the corresponding consumables
-Medical supplies similarly replenish health
-Stats are needed for immunity to hunger or thirst
-Hunger and thirst needs progressively add more penalties to various stats
-These penalties are themselves stats, and are percentages
-A Creature will die if either need reaches 0
+Creatures have a melee and ranged weapon skill, which is a percentage
+Weapon items have a damage chance
+When attacking with a weapon, the corresponding weapon skill is multiplied with the weapon's damage chance
+Creatures have a defense skill, which is a percentage
+Armor items have a damage avoidance chance
+When defending with armor, the armor's damage avoidance chances are summed and then multiplied by the damage avoidance
+chance
+An attack's damage chance is compared to the defender's damage avoidance chance to determine if the attack does damage
 
-Need some kind of AI goal interruption eventually
-Need some kind of AI goal prioritizing eventually
+There are global percentage values that define thresholds for health, food, and water
+These thresholds are used to define penalties for progressively lower values of the corresponding stat
+The penalty for a given threshold is also a global percentage, used to reduce various stats
+Lower health reduces move force and max speed
+Lower food reduces max health, and eventually causes health to decrease over time
+Lower water reduces melee and ranged weapon skills, as well as defense skill, and eventually causes health to decrease
+over time
+
+Creatures have a maximum mass for equipment they can use
+Armor
+Starting equipment chances for races
 
 Add ranged weapons, slot, and the ability to do ranged attacks
 Add ammo types, with consumable items for each
 Ammo is consumed directly by its corresponding ranged weapon when the weapon fires
+
+Need some kind of AI goal prioritizing eventually
+Currently, AiChoice has a priority, but it is 0 for everything
+Instead, each AiGoal type should have a corresponding priority
+Also, some AiGoal types essentially have subtypes (e.g., getItem can be getting different item types)
+In this case, the item type and how badly it is needed should factor into the priority
+Additionally, both CreatureTarget and ItemTarget currently sort by just distance, but this should be expanded
+E.g., ItemTarget should also take into account need for item, alongside distance
+
+Need some kind of AI goal interruption eventually?
 
 Add AI scores for relative strength of nearby friendlies vs hostiles when deciding whether to attack a creature
 Add retreating as a goal

@@ -66,3 +66,27 @@
 	value:30
 	type:uint32_t
 </game_constant>
+
+<game_constant>
+	name:ticks_per_minute
+	value:30
+	type:uint16_t
+</game_constant>
+
+<game_constant>
+	name:minutes_per_hour
+	value:60
+	type:uint16_t
+</game_constant>
+
+<game_constant>
+	name:hours_per_day
+	value:24
+	type:uint16_t
+</game_constant>
+
+<game_constant>
+	name:maximum_dead_bodies
+	value:1024
+	type:uint32_t
+</game_constant>

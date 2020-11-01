@@ -60,6 +60,22 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
         stats.maximumHealth = Strings::string_to_long(line);
 
         return true;
+    } else if (Data_Reader::check_prefix(line, "maximumFood:")) {
+        stats.maximumFood = Strings::string_to_long(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "maximumWater:")) {
+        stats.maximumWater = Strings::string_to_long(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "hunger:")) {
+        stats.hunger = Strings::string_to_long(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "thirst:")) {
+        stats.thirst = Strings::string_to_long(line);
+
+        return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackDamageType:")) {
         stats.meleeAttackDamageType = line;
 
@@ -107,6 +123,26 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
     } else if (Data_Reader::check_prefix(line, "undead:")) {
         stats.definesUndead = true;
         stats.undead = Strings::string_to_bool(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "canGetItems:")) {
+        stats.definesCanGetItems = true;
+        stats.canGetItems = Strings::string_to_bool(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "canUseItems:")) {
+        stats.definesCanUseItems = true;
+        stats.canUseItems = Strings::string_to_bool(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "hungers:")) {
+        stats.definesHungers = true;
+        stats.hungers = Strings::string_to_bool(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "thirsts:")) {
+        stats.definesThirsts = true;
+        stats.thirsts = Strings::string_to_bool(line);
 
         return true;
     }
@@ -245,8 +281,12 @@ size_t Game_Data::loadConsumableType (vector<string>& lines, size_t lineIndex, W
             consumable.sprite = line;
         } else if (Data_Reader::check_prefix(line, "maximum:")) {
             consumable.maximum = Strings::string_to_unsigned_long(line);
-        } else if (Data_Reader::check_prefix(line, "healing:")) {
-            consumable.healing = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "health:")) {
+            consumable.health = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "food:")) {
+            consumable.food = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "water:")) {
+            consumable.water = Strings::string_to_long(line);
         } else if (Data_Reader::check_prefix(line, "</consumable>")) {
             world.consumables[name] = consumable;
 

@@ -25,6 +25,8 @@ class Creature: public PhysicsObject {
         String race;
         String faction;
         Health health;
+        Health food;
+        Health water;
         AiGoal goal;
         Attack attack;
         EquipmentManager equipment;
@@ -35,6 +37,8 @@ class Creature: public PhysicsObject {
         double getMoveForce() const;
         double getMaximumSpeed() const;
         uint32 getCollisionSteps() const;
+        Health getHunger() const;
+        Health getThirst() const;
         String getMeleeAttackDamageType() const;
         Health getMeleeAttackMinimumDamage() const;
         Health getMeleeAttackMaximumDamage() const;
@@ -44,6 +48,10 @@ class Creature: public PhysicsObject {
         Tiles getGetItemRange() const;
         Tiles getSightRange() const;
         bool isUndead() const;
+        bool canGetItems() const;
+        bool canUseItems() const;
+        bool hungers() const;
+        bool thirsts() const;
 
         const Relationship& getRelationship(const Creature& creature) const;
     public:
@@ -51,12 +59,16 @@ class Creature: public PhysicsObject {
         String getRace() const;
         String getFaction() const;
         Health getHealth() const;
+        Health getFood() const;
+        Health getWater() const;
         const AiGoal& getGoal() const;
         const Attack& getAttack() const;
         EquipmentManager& getEquipment();
         ConsumableManager& getConsumables();
 
         Health getMaximumHealth() const;
+        Health getMaximumFood() const;
+        Health getMaximumWater() const;
         Health getSmashingDefense() const;
         Health getSlashingDefense() const;
         Health getStabbingDefense() const;
@@ -64,7 +76,12 @@ class Creature: public PhysicsObject {
         bool isAlive() const;
         PixelBox getSight() const;
 
-        void heal(Health healing);
+        void hunger();
+        void thirst();
+
+        void heal(Health health);
+        void eat(Health food);
+        void drink(Health water);
 
         void meleeAttack(const Index index, const Index creatureIndex);
         // Returns counterattack damage
@@ -72,8 +89,11 @@ class Creature: public PhysicsObject {
         void die(const Index index);
 
         void handleCreatureDeath(const Index index);
+        void handleCreatureDeletion(const Index index);
+        void handleItemCollection(const Index index);
+        void handleItemDeletion(const Index index);
         bool canCheckForAiGoal(const Index index) const;
-        void considerUsingHealingItem(List<AiChoice>& choices);
+        void considerUsingConsumable(List<AiChoice>& choices);
         List<CreatureTarget> considerAttackingCreature(List<AiChoice>& choices, const Index index);
         bool isItemDesired(const Item& item);
         List<ItemTarget> considerGettingItem(List<AiChoice>& choices);
