@@ -3,10 +3,12 @@
 /* See the file docs/LICENSE.txt for the full license text. */
 
 #include "damage.h"
+#include "game.h"
 
 using namespace std;
 
-Damage::Damage (const String& type, const Health amount) {
+Damage::Damage (const Chance chance, const String& type, const Health amount) {
+    this->chance = chance;
     this->type = type;
     this->amount = amount;
 }
@@ -14,6 +16,11 @@ Health Damage::getAmount () const {
     return amount;
 }
 
+bool Damage::damages (const Creature& creature) const {
+    return Game::getRng().random_range(0,
+                                       99) < chance &&
+           Game::getRng().random_range(0, 99) >= creature.getDamageAvoidanceChance();
+}
 Health Damage::getModifiedAmount (const Creature& creature) const {
     if (type == "smashing") {
         return max(amount - creature.getSmashingDefense(), 0);

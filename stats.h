@@ -18,12 +18,16 @@ class Stats {
         static const Health NO_MAXIMUM_WATER;
         static const Health NO_HUNGER;
         static const Health NO_THIRST;
+        static const double NO_MELEE_SKILL;
+        static const Chance NO_MELEE_DAMAGE_CHANCE;
         static const String NO_MELEE_ATTACK_DAMAGE_TYPE;
         static const Health NO_MELEE_ATTACK_MINIMUM_DAMAGE;
         static const Health NO_MELEE_ATTACK_MAXIMUM_DAMAGE;
         static const Tiles NO_MELEE_ATTACK_RANGE;
         static const Count NO_MELEE_ATTACK_COOLDOWN;
         static const Count NO_MELEE_ATTACK_PREPARATION;
+        static const double NO_DEFENSE_SKILL;
+        static const Chance NO_DAMAGE_AVOIDANCE_CHANCE;
         static const Health NO_SMASHING_DEFENSE;
         static const Health NO_SLASHING_DEFENSE;
         static const Health NO_STABBING_DEFENSE;
@@ -43,6 +47,9 @@ class Stats {
         Health hunger;
         // per calendar minute
         Health thirst;
+        // [0.0, 1.0]
+        double meleeSkill;
+        Chance meleeDamageChance;
         String meleeAttackDamageType;
         Health meleeAttackMinimumDamage;
         Health meleeAttackMaximumDamage;
@@ -52,6 +59,9 @@ class Stats {
         Count meleeAttackCooldown;
         // milliseconds
         Count meleeAttackPreparation;
+        // [0.0, 1.0]
+        double defenseSkill;
+        Chance damageAvoidanceChance;
         Health smashingDefense;
         Health slashingDefense;
         Health stabbingDefense;

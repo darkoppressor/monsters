@@ -13,6 +13,8 @@ class EquipmentType {
         String sprite;
         String slot;
         double mass;
+        // [0, 100]
+        Chance damageChance;
         String damageType;
         Health minimumDamage;
         Health maximumDamage;

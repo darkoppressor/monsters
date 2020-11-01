@@ -39,12 +39,15 @@ class Creature: public PhysicsObject {
         uint32 getCollisionSteps() const;
         Health getHunger() const;
         Health getThirst() const;
+        double getMeleeSkill() const;
+        Chance getMeleeDamageChance() const;
         String getMeleeAttackDamageType() const;
         Health getMeleeAttackMinimumDamage() const;
         Health getMeleeAttackMaximumDamage() const;
         Tiles getMeleeAttackRange() const;
         Count getMeleeAttackCooldown() const;
         Count getMeleeAttackPreparation() const;
+        double getDefenseSkill() const;
         Tiles getGetItemRange() const;
         Tiles getSightRange() const;
         bool isUndead() const;
@@ -69,6 +72,7 @@ class Creature: public PhysicsObject {
         Health getMaximumHealth() const;
         Health getMaximumFood() const;
         Health getMaximumWater() const;
+        Chance getDamageAvoidanceChance() const;
         Health getSmashingDefense() const;
         Health getSlashingDefense() const;
         Health getStabbingDefense() const;
@@ -85,7 +89,7 @@ class Creature: public PhysicsObject {
 
         void meleeAttack(const Index index, const Index creatureIndex);
         // Returns counterattack damage
-        Damage takeDamage(const Index index, const Damage& damage);
+        Damage takeMeleeDamage(const Index index, const Damage& damage);
         void die(const Index index);
 
         void handleCreatureDeath(const Index index);

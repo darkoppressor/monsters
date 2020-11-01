@@ -12,12 +12,14 @@ class Creature;
 
 class Damage {
     private:
+        Chance chance;
         String type;
         Health amount;
     public:
-        Damage (const String& type, const Health amount);
+        Damage (const Chance chance, const String& type, const Health amount);
         Health getAmount() const;
 
+        bool damages(const Creature& creature) const;
         Health getModifiedAmount(const Creature& creature) const;
 };
 

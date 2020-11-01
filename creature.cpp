@@ -55,6 +55,23 @@ Health Creature::getThirst () const {
     return race.stats.thirst != Stats::NO_THIRST ? race.stats.thirst : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.thirst;
 }
+double Creature::getMeleeSkill () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.meleeSkill != Stats::NO_MELEE_SKILL ? race.stats.meleeSkill : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.meleeSkill;
+}
+Chance Creature::getMeleeDamageChance () const {
+    if (equipment.hasMeleeWeapon()) {
+        return equipment.getMeleeWeapon().damageChance * getMeleeSkill();
+    }
+
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.meleeDamageChance !=
+           Stats::NO_MELEE_DAMAGE_CHANCE ? race.stats.meleeDamageChance * getMeleeSkill() : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.meleeDamageChance * getMeleeSkill();
+}
 String Creature::getMeleeAttackDamageType () const {
     if (equipment.hasMeleeWeapon()) {
         return equipment.getMeleeWeapon().damageType;
@@ -122,6 +139,12 @@ Count Creature::getMeleeAttackPreparation () const {
     return race.stats.meleeAttackPreparation !=
            Stats::NO_MELEE_ATTACK_PREPARATION ? race.stats.meleeAttackPreparation : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.meleeAttackPreparation;
+}
+double Creature::getDefenseSkill () const {
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.defenseSkill != Stats::NO_DEFENSE_SKILL ? race.stats.defenseSkill : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.defenseSkill;
 }
 Tiles Creature::getGetItemRange () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -225,6 +248,19 @@ Health Creature::getMaximumWater () const {
     return race.stats.maximumWater != Stats::NO_MAXIMUM_WATER ? race.stats.maximumWater : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.maximumWater;
 }
+Chance Creature::getDamageAvoidanceChance () const {
+    // QQQ Handle equipped armor
+    // Probably add the base value to the sum of all armor
+    // Actually probably do an average
+
+    const Race& race = Game_Data::getRace(this->race);
+
+    return race.stats.damageAvoidanceChance !=
+           Stats::NO_DAMAGE_AVOIDANCE_CHANCE ? race.stats.damageAvoidanceChance *
+           getDefenseSkill() : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                          race.category).stats.damageAvoidanceChance *
+           getDefenseSkill();
+}
 Health Creature::getSmashingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
 
@@ -306,27 +342,32 @@ void Creature::drink (Health water) {
 
 void Creature::meleeAttack (const Index index, const Index creatureIndex) {
     Damage counterattack =
-        Game::getCreature(creatureIndex).takeDamage(creatureIndex,
-                                                    Damage(getMeleeAttackDamageType(),
-                                                           Game::getRng().random_range(getMeleeAttackMinimumDamage(),
-                                                                                       getMeleeAttackMaximumDamage())));
+        Game::getCreature(creatureIndex).takeMeleeDamage(creatureIndex,
+                                                         Damage(getMeleeDamageChance(), getMeleeAttackDamageType(),
+                                                                Game::getRng().random_range(getMeleeAttackMinimumDamage(),
+                                                                                            getMeleeAttackMaximumDamage())));
 
     if (counterattack.getAmount() > 0) {
-        takeDamage(index, counterattack);
+        takeMeleeDamage(index, counterattack);
     }
 }
-Damage Creature::takeDamage (const Index index, const Damage& damage) {
-    Health damageTaken = damage.getModifiedAmount(Game::getCreature(index));
+Damage Creature::takeMeleeDamage (const Index index, const Damage& damage) {
+    if (damage.damages(Game::getCreature(index))) {
+        Health damageTaken = damage.getModifiedAmount(Game::getCreature(index));
 
-    if (damageTaken >= health) {
-        health = 0;
-        die(index);
+        if (damageTaken >= health) {
+            health = 0;
+            die(index);
 
-        return Damage("", 0);
+            return Damage(0, "", 0);
+        } else {
+            health -= damageTaken;
+
+            return Damage(getMeleeDamageChance(), getMeleeAttackDamageType(),
+                          Game::getRng().random_range(getMeleeAttackMinimumDamage(), getMeleeAttackMaximumDamage()));
+        }
     } else {
-        health -= damageTaken;
-
-        return Damage(getMeleeAttackDamageType(),
+        return Damage(getMeleeDamageChance(), getMeleeAttackDamageType(),
                       Game::getRng().random_range(getMeleeAttackMinimumDamage(), getMeleeAttackMaximumDamage()));
     }
 }

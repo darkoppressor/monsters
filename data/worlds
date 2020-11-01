@@ -14,12 +14,16 @@
 		maximumWater:150
 		hunger:1
 		thirst:1
+		meleeSkill:0.9
+		meleeDamageChance:75
 		meleeAttackDamageType:smashing
 		meleeAttackMinimumDamage:1
 		meleeAttackMaximumDamage:2
 		meleeAttackRange:4
 		meleeAttackCooldown:200
 		meleeAttackPreparation:50
+		defenseSkill:0.1
+		damageAvoidanceChance:10
 		smashingDefense:0
 		slashingDefense:0
 		stabbingDefense:0
@@ -43,12 +47,16 @@
 		maximumWater:0
 		hunger:0
 		thirst:0
+		meleeSkill:0.5
+		meleeDamageChance:100
 		meleeAttackDamageType:smashing
 		meleeAttackMinimumDamage:2
 		meleeAttackMaximumDamage:3
 		meleeAttackRange:4
 		meleeAttackCooldown:400
 		meleeAttackPreparation:100
+		defenseSkill:0.05
+		damageAvoidanceChance:100
 		smashingDefense:0
 		slashingDefense:0
 		stabbingDefense:0
@@ -79,6 +87,7 @@
 		sprite:crowbar
 		slot:meleeWeapon
 		mass:2.3
+		damageChance:80
 		damageType:smashing
 		minimumDamage:1
 		maximumDamage:2

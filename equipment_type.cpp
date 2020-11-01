@@ -11,6 +11,7 @@ EquipmentType::EquipmentType () {
     sprite = "";
     slot = "";
     mass = 0.0;
+    damageChance = 0;
     damageType = "";
     minimumDamage = 0;
     maximumDamage = 0;

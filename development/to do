@@ -1,12 +1,3 @@
-Creatures have a melee and ranged weapon skill, which is a percentage
-Weapon items have a damage chance
-When attacking with a weapon, the corresponding weapon skill is multiplied with the weapon's damage chance
-Creatures have a defense skill, which is a percentage
-Armor items have a damage avoidance chance
-When defending with armor, the armor's damage avoidance chances are summed and then multiplied by the damage avoidance
-chance
-An attack's damage chance is compared to the defender's damage avoidance chance to determine if the attack does damage
-
 There are global percentage values that define thresholds for health, food, and water
 These thresholds are used to define penalties for progressively lower values of the corresponding stat
 The penalty for a given threshold is also a global percentage, used to reduce various stats
@@ -15,8 +6,8 @@ Lower food reduces max health, and eventually causes health to decrease over tim
 Lower water reduces melee and ranged weapon skills, as well as defense skill, and eventually causes health to decrease
 over time
 
-Creatures have a maximum mass for equipment they can use
 Armor
+Creatures have a maximum mass for equipment they can use
 Starting equipment chances for races
 
 Add ranged weapons, slot, and the ability to do ranged attacks

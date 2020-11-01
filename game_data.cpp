@@ -76,6 +76,14 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
         stats.thirst = Strings::string_to_long(line);
 
         return true;
+    } else if (Data_Reader::check_prefix(line, "meleeSkill:")) {
+        stats.meleeSkill = Strings::string_to_double(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "meleeDamageChance:")) {
+        stats.meleeDamageChance = Strings::string_to_unsigned_long(line);
+
+        return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackDamageType:")) {
         stats.meleeAttackDamageType = line;
 
@@ -98,6 +106,14 @@ bool Game_Data::loadStat (string& line, Stats& stats) {
         return true;
     } else if (Data_Reader::check_prefix(line, "meleeAttackPreparation:")) {
         stats.meleeAttackPreparation = Strings::string_to_unsigned_long(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "defenseSkill:")) {
+        stats.defenseSkill = Strings::string_to_double(line);
+
+        return true;
+    } else if (Data_Reader::check_prefix(line, "damageAvoidanceChance:")) {
+        stats.damageAvoidanceChance = Strings::string_to_unsigned_long(line);
 
         return true;
     } else if (Data_Reader::check_prefix(line, "smashingDefense:")) {
@@ -246,6 +262,8 @@ size_t Game_Data::loadEquipmentType (vector<string>& lines, size_t lineIndex, Wo
             equipment.slot = line;
         } else if (Data_Reader::check_prefix(line, "mass:")) {
             equipment.mass = Strings::string_to_double(line);
+        } else if (Data_Reader::check_prefix(line, "damageChance:")) {
+            equipment.damageChance = Strings::string_to_unsigned_long(line);
         } else if (Data_Reader::check_prefix(line, "damageType:")) {
             equipment.damageType = line;
         } else if (Data_Reader::check_prefix(line, "minimumDamage:")) {
