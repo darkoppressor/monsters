@@ -337,38 +337,152 @@ Health Creature::getMaximumWater () const {
         Game::getWorldName(), race.category).stats.maximumWater;
 }
 Chance Creature::getDamageAvoidanceChance () const {
-    // QQQ Handle equipped armor
-    // Probably add the base value to the sum of all armor
-    // Actually probably do an average
+    Chance average = 0;
+    Chance count = 1;
+
+    if (equipment.hasHeadArmor()) {
+        average += equipment.getHeadArmor().damageAvoidanceChance;
+        count++;
+    }
+
+    if (equipment.hasTorsoArmor()) {
+        average += equipment.getTorsoArmor().damageAvoidanceChance;
+        count++;
+    }
+
+    if (equipment.hasHandArmor()) {
+        average += equipment.getHandArmor().damageAvoidanceChance;
+        count++;
+    }
+
+    if (equipment.hasLegArmor()) {
+        average += equipment.getLegArmor().damageAvoidanceChance;
+        count++;
+    }
+
+    if (equipment.hasFootArmor()) {
+        average += equipment.getFootArmor().damageAvoidanceChance;
+        count++;
+    }
 
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.damageAvoidanceChance !=
-           Stats::NO_DAMAGE_AVOIDANCE_CHANCE ? race.stats.damageAvoidanceChance *
-           getDefenseSkill() : Game_Data::getRaceCategory(Game::getWorldName(),
-                                                          race.category).stats.damageAvoidanceChance *
-           getDefenseSkill();
+    average += race.stats.damageAvoidanceChance !=
+               Stats::NO_DAMAGE_AVOIDANCE_CHANCE ? race.stats.damageAvoidanceChance : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.damageAvoidanceChance;
+
+    return average / count * getDefenseSkill();
 }
 Health Creature::getSmashingDefense () const {
+    Chance average = 0;
+    Chance count = 1;
+
+    if (equipment.hasHeadArmor()) {
+        average += equipment.getHeadArmor().smashingDefense;
+        count++;
+    }
+
+    if (equipment.hasTorsoArmor()) {
+        average += equipment.getTorsoArmor().smashingDefense;
+        count++;
+    }
+
+    if (equipment.hasHandArmor()) {
+        average += equipment.getHandArmor().smashingDefense;
+        count++;
+    }
+
+    if (equipment.hasLegArmor()) {
+        average += equipment.getLegArmor().smashingDefense;
+        count++;
+    }
+
+    if (equipment.hasFootArmor()) {
+        average += equipment.getFootArmor().smashingDefense;
+        count++;
+    }
+
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.smashingDefense !=
-           Stats::NO_SMASHING_DEFENSE ? race.stats.smashingDefense : Game_Data::getRaceCategory(
+    average += race.stats.smashingDefense !=
+               Stats::NO_SMASHING_DEFENSE ? race.stats.smashingDefense : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.smashingDefense;
+
+    return average / count;
 }
 Health Creature::getSlashingDefense () const {
+    Chance average = 0;
+    Chance count = 1;
+
+    if (equipment.hasHeadArmor()) {
+        average += equipment.getHeadArmor().slashingDefense;
+        count++;
+    }
+
+    if (equipment.hasTorsoArmor()) {
+        average += equipment.getTorsoArmor().slashingDefense;
+        count++;
+    }
+
+    if (equipment.hasHandArmor()) {
+        average += equipment.getHandArmor().slashingDefense;
+        count++;
+    }
+
+    if (equipment.hasLegArmor()) {
+        average += equipment.getLegArmor().slashingDefense;
+        count++;
+    }
+
+    if (equipment.hasFootArmor()) {
+        average += equipment.getFootArmor().slashingDefense;
+        count++;
+    }
+
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.slashingDefense !=
-           Stats::NO_SLASHING_DEFENSE ? race.stats.slashingDefense : Game_Data::getRaceCategory(
+    average += race.stats.slashingDefense !=
+               Stats::NO_SLASHING_DEFENSE ? race.stats.slashingDefense : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.slashingDefense;
+
+    return average / count;
 }
 Health Creature::getStabbingDefense () const {
+    Chance average = 0;
+    Chance count = 1;
+
+    if (equipment.hasHeadArmor()) {
+        average += equipment.getHeadArmor().stabbingDefense;
+        count++;
+    }
+
+    if (equipment.hasTorsoArmor()) {
+        average += equipment.getTorsoArmor().stabbingDefense;
+        count++;
+    }
+
+    if (equipment.hasHandArmor()) {
+        average += equipment.getHandArmor().stabbingDefense;
+        count++;
+    }
+
+    if (equipment.hasLegArmor()) {
+        average += equipment.getLegArmor().stabbingDefense;
+        count++;
+    }
+
+    if (equipment.hasFootArmor()) {
+        average += equipment.getFootArmor().stabbingDefense;
+        count++;
+    }
+
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.stabbingDefense !=
-           Stats::NO_STABBING_DEFENSE ? race.stats.stabbingDefense : Game_Data::getRaceCategory(
+    average += race.stats.stabbingDefense !=
+               Stats::NO_STABBING_DEFENSE ? race.stats.stabbingDefense : Game_Data::getRaceCategory(
         Game::getWorldName(), race.category).stats.stabbingDefense;
+
+    return average / count;
 }
 
 bool Creature::isAlive () const {

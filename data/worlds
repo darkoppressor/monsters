@@ -94,6 +94,66 @@
 		range:5
 	</equipment>
 
+	<equipment>
+		name:bandana
+		displayName:Bandana
+		sprite:bandana
+		slot:headArmor
+		mass:0.05
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:leatherJacket
+		displayName:Leather jacket
+		sprite:leatherJacket
+		slot:torsoArmor
+		mass:2.3
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:leatherGloves
+		displayName:Leather gloves
+		sprite:leatherGloves
+		slot:handArmor
+		mass:0.5
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:denimPants
+		displayName:Denim pants
+		sprite:denimPants
+		slot:legArmor
+		mass:2.0
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:leatherBoots
+		displayName:Leather boots
+		sprite:leatherBoots
+		slot:footArmor
+		mass:1.1
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
 	<consumable>
 		name:medkit
 		displayName:Medkit

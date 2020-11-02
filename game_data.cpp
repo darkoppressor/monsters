@@ -272,6 +272,14 @@ size_t Game_Data::loadEquipmentType (vector<string>& lines, size_t lineIndex, Wo
             equipment.maximumDamage = Strings::string_to_long(line);
         } else if (Data_Reader::check_prefix(line, "range:")) {
             equipment.range = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "damageAvoidanceChance:")) {
+            equipment.damageAvoidanceChance = Strings::string_to_unsigned_long(line);
+        } else if (Data_Reader::check_prefix(line, "smashingDefense:")) {
+            equipment.smashingDefense = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "slashingDefense:")) {
+            equipment.slashingDefense = Strings::string_to_long(line);
+        } else if (Data_Reader::check_prefix(line, "stabbingDefense:")) {
+            equipment.stabbingDefense = Strings::string_to_long(line);
         } else if (Data_Reader::check_prefix(line, "</equipment>")) {
             world.equipment[name] = equipment;
 

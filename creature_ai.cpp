@@ -87,10 +87,24 @@ bool Creature::isItemDesired (const Item& item) {
     if (item.isEquipment()) {
         const EquipmentType& equipmentType = Game_Data::getEquipmentType(Game::getWorldName(), item.getType());
 
-        if (equipmentType.slot == "meleeWeapon") {
-            if (!equipment.hasMeleeWeapon() || equipmentType > equipment.getMeleeWeapon()) {
-                return true;
-            }
+        if (equipmentType.slot == "meleeWeapon" &&
+            (!equipment.hasMeleeWeapon() || equipmentType > equipment.getMeleeWeapon())) {
+            return true;
+        } else if (equipmentType.slot == "headArmor" &&
+                   (!equipment.hasHeadArmor() || equipmentType > equipment.getHeadArmor())) {
+            return true;
+        } else if (equipmentType.slot == "torsoArmor" &&
+                   (!equipment.hasTorsoArmor() || equipmentType > equipment.getTorsoArmor())) {
+            return true;
+        } else if (equipmentType.slot == "handArmor" &&
+                   (!equipment.hasHandArmor() || equipmentType > equipment.getHandArmor())) {
+            return true;
+        } else if (equipmentType.slot == "legArmor" &&
+                   (!equipment.hasLegArmor() || equipmentType > equipment.getLegArmor())) {
+            return true;
+        } else if (equipmentType.slot == "footArmor" &&
+                   (!equipment.hasFootArmor() || equipmentType > equipment.getFootArmor())) {
+            return true;
         }
     } else {
         if (consumables.canHold(item.getType())) {

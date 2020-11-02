@@ -19,6 +19,11 @@ class EquipmentType {
         Health minimumDamage;
         Health maximumDamage;
         Tiles range;
+        // [0, 100]
+        Chance damageAvoidanceChance;
+        Health smashingDefense;
+        Health slashingDefense;
+        Health stabbingDefense;
 
         EquipmentType ();
         bool operator> (const EquipmentType& equipmentType) const;
