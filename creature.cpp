@@ -6,6 +6,7 @@
 #include "game_data.h"
 #include "game.h"
 #include "game_constants.h"
+#include "need.h"
 
 using namespace std;
 
@@ -27,14 +28,16 @@ double Creature::getMass () const {
 double Creature::getMoveForce () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.moveForce != Stats::NO_MOVE_FORCE ? race.stats.moveForce : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.moveForce;
+    return race.stats.moveForce !=
+           Stats::NO_MOVE_FORCE ? race.stats.moveForce * getHealthModifier() : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.moveForce * getHealthModifier();
 }
 double Creature::getMaximumSpeed () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.maximumSpeed != Stats::NO_MAXIMUM_SPEED ? race.stats.maximumSpeed : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.maximumSpeed;
+    return race.stats.maximumSpeed !=
+           Stats::NO_MAXIMUM_SPEED ? race.stats.maximumSpeed * getHealthModifier() : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.maximumSpeed * getHealthModifier();
 }
 uint32 Creature::getCollisionSteps () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -58,8 +61,9 @@ Health Creature::getThirst () const {
 double Creature::getMeleeSkill () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.meleeSkill != Stats::NO_MELEE_SKILL ? race.stats.meleeSkill : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeSkill;
+    return race.stats.meleeSkill !=
+           Stats::NO_MELEE_SKILL ? race.stats.meleeSkill * getWaterModifier() : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.meleeSkill * getWaterModifier();
 }
 Chance Creature::getMeleeDamageChance () const {
     if (equipment.hasMeleeWeapon()) {
@@ -143,8 +147,9 @@ Count Creature::getMeleeAttackPreparation () const {
 double Creature::getDefenseSkill () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.defenseSkill != Stats::NO_DEFENSE_SKILL ? race.stats.defenseSkill : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.defenseSkill;
+    return race.stats.defenseSkill !=
+           Stats::NO_DEFENSE_SKILL ? race.stats.defenseSkill * getWaterModifier() : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.defenseSkill * getWaterModifier();
 }
 Tiles Creature::getGetItemRange () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -189,8 +194,90 @@ bool Creature::thirsts () const {
         Game::getWorldName(), race.category).stats.thirsts;
 }
 
+double Creature::getHealthModifier () const {
+    Need::Threshold threshold = Need::getThreshold(health, getMaximumHealth());
+
+    if (threshold == Need::Threshold::great) {
+        return Game_Constants::HEALTH_MODIFIER_GREAT;
+    } else if (threshold == Need::Threshold::good) {
+        return Game_Constants::HEALTH_MODIFIER_GOOD;
+    } else if (threshold == Need::Threshold::ok) {
+        return Game_Constants::HEALTH_MODIFIER_OK;
+    } else if (threshold == Need::Threshold::bad) {
+        return Game_Constants::HEALTH_MODIFIER_BAD;
+    } else if (threshold == Need::Threshold::terrible) {
+        return Game_Constants::HEALTH_MODIFIER_TERRIBLE;
+    } else {
+        return 0.0;
+    }
+}
+double Creature::getFoodModifier () const {
+    if (hungers()) {
+        Need::Threshold threshold = Need::getThreshold(food, getMaximumFood());
+
+        if (threshold == Need::Threshold::great) {
+            return Game_Constants::FOOD_MODIFIER_GREAT;
+        } else if (threshold == Need::Threshold::good) {
+            return Game_Constants::FOOD_MODIFIER_GOOD;
+        } else if (threshold == Need::Threshold::ok) {
+            return Game_Constants::FOOD_MODIFIER_OK;
+        } else if (threshold == Need::Threshold::bad) {
+            return Game_Constants::FOOD_MODIFIER_BAD;
+        } else if (threshold == Need::Threshold::terrible) {
+            return Game_Constants::FOOD_MODIFIER_TERRIBLE;
+        } else {
+            return 0.0;
+        }
+    } else {
+        return Game_Constants::FOOD_MODIFIER_GREAT;
+    }
+}
+double Creature::getWaterModifier () const {
+    if (thirsts()) {
+        Need::Threshold threshold = Need::getThreshold(water, getMaximumWater());
+
+        if (threshold == Need::Threshold::great) {
+            return Game_Constants::WATER_MODIFIER_GREAT;
+        } else if (threshold == Need::Threshold::good) {
+            return Game_Constants::WATER_MODIFIER_GOOD;
+        } else if (threshold == Need::Threshold::ok) {
+            return Game_Constants::WATER_MODIFIER_OK;
+        } else if (threshold == Need::Threshold::bad) {
+            return Game_Constants::WATER_MODIFIER_BAD;
+        } else if (threshold == Need::Threshold::terrible) {
+            return Game_Constants::WATER_MODIFIER_TERRIBLE;
+        } else {
+            return 0.0;
+        }
+    } else {
+        return Game_Constants::WATER_MODIFIER_GREAT;
+    }
+}
 const Relationship& Creature::getRelationship (const Creature& creature) const {
     return Game_Data::getFaction(Game::getWorldName(), this->faction).getRelationship(creature.getFaction());
+}
+
+void Creature::hunger () {
+    if (isAlive() && hungers()) {
+        if (getHunger() >= food) {
+            food = 0;
+        } else {
+            food -= getHunger();
+        }
+
+        if (health > getMaximumHealth()) {
+            health = getMaximumHealth();
+        }
+    }
+}
+void Creature::thirst () {
+    if (isAlive() && thirsts()) {
+        if (getThirst() >= water) {
+            water = 0;
+        } else {
+            water -= getThirst();
+        }
+    }
 }
 
 Creature::Creature (const TileCoords& position, const String& race, const String& faction):PhysicsObject(position, Game_Data::getRace(
@@ -233,8 +320,9 @@ ConsumableManager& Creature::getConsumables () {
 Health Creature::getMaximumHealth () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.maximumHealth != Stats::NO_MAXIMUM_HEALTH ? race.stats.maximumHealth : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.maximumHealth;
+    return race.stats.maximumHealth !=
+           Stats::NO_MAXIMUM_HEALTH ? race.stats.maximumHealth * getFoodModifier() : Game_Data::getRaceCategory(
+        Game::getWorldName(), race.category).stats.maximumHealth * getFoodModifier();
 }
 Health Creature::getMaximumFood () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -293,22 +381,17 @@ PixelBox Creature::getSight () const {
     return PixelBox(box.center_x() - sightRange, box.center_y() - sightRange, sightRange * 2.0, sightRange * 2.0);
 }
 
-void Creature::hunger () {
-    if (isAlive() && hungers()) {
-        if (getHunger() >= food) {
-            food = 0;
-        } else {
-            food -= getHunger();
-        }
-    }
+void Creature::handleCalendarMinute () {
+    hunger();
+    thirst();
 }
-void Creature::thirst () {
-    if (isAlive() && thirsts()) {
-        if (getThirst() >= water) {
-            water = 0;
-        } else {
-            water -= getThirst();
-        }
+void Creature::handleCalendarHour (const Index index) {
+    if (Need::getThreshold(food, getMaximumFood()) == Need::Threshold::terrible) {
+        takeTypelessDamage(index, max((Health) (getMaximumHealth() * Game_Constants::FOOD_HEALTH_LOSS), (Health) 1));
+    }
+
+    if (Need::getThreshold(water, getMaximumWater()) == Need::Threshold::terrible) {
+        takeTypelessDamage(index, max((Health) (getMaximumHealth() * Game_Constants::WATER_HEALTH_LOSS), (Health) 1));
     }
 }
 
@@ -369,6 +452,16 @@ Damage Creature::takeMeleeDamage (const Index index, const Damage& damage) {
     } else {
         return Damage(getMeleeDamageChance(), getMeleeAttackDamageType(),
                       Game::getRng().random_range(getMeleeAttackMinimumDamage(), getMeleeAttackMaximumDamage()));
+    }
+}
+void Creature::takeTypelessDamage (const Index index, const Health damage) {
+    if (isAlive()) {
+        if (damage >= health) {
+            health = 0;
+            die(index);
+        } else {
+            health -= damage;
+        }
     }
 }
 void Creature::die (const Index index) {

@@ -56,7 +56,13 @@ class Creature: public PhysicsObject {
         bool hungers() const;
         bool thirsts() const;
 
+        double getHealthModifier() const;
+        double getFoodModifier() const;
+        double getWaterModifier() const;
         const Relationship& getRelationship(const Creature& creature) const;
+
+        void hunger();
+        void thirst();
     public:
         Creature (const TileCoords& position, const String& race, const String& faction);
         String getRace() const;
@@ -80,8 +86,8 @@ class Creature: public PhysicsObject {
         bool isAlive() const;
         PixelBox getSight() const;
 
-        void hunger();
-        void thirst();
+        void handleCalendarMinute();
+        void handleCalendarHour(const Index index);
 
         void heal(Health health);
         void eat(Health food);
@@ -90,6 +96,7 @@ class Creature: public PhysicsObject {
         void meleeAttack(const Index index, const Index creatureIndex);
         // Returns counterattack damage
         Damage takeMeleeDamage(const Index index, const Damage& damage);
+        void takeTypelessDamage(const Index index, const Health damage);
         void die(const Index index);
 
         void handleCreatureDeath(const Index index);

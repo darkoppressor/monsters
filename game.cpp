@@ -180,11 +180,12 @@ void Game::tick () {
 
     if (tick.getType() == Tick::Type::minute) {
         for (auto& creature : creatures) {
-            creature.hunger();
-            creature.thirst();
+            creature.handleCalendarMinute();
         }
     } else if (tick.getType() == Tick::Type::hour) {
-        // QQQ Does anything happen hourly?
+        for (Index i = 0; i < creatures.size(); i++) {
+            creatures[i].handleCalendarHour(i);
+        }
     } else if (tick.getType() == Tick::Type::day) {
         // QQQ Does anything happen daily?
     }

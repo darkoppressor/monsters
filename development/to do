@@ -1,11 +1,3 @@
-There are global percentage values that define thresholds for health, food, and water
-These thresholds are used to define penalties for progressively lower values of the corresponding stat
-The penalty for a given threshold is also a global percentage, used to reduce various stats
-Lower health reduces move force and max speed
-Lower food reduces max health, and eventually causes health to decrease over time
-Lower water reduces melee and ranged weapon skills, as well as defense skill, and eventually causes health to decrease
-over time
-
 Armor
 Creatures have a maximum mass for equipment they can use
 Starting equipment chances for races

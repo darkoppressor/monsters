@@ -32,6 +32,7 @@ game_options.cpp
 item.cpp
 item_target.cpp
 main.cpp
+need.cpp
 network_game.cpp
 physics_object.cpp
 race_category.cpp
