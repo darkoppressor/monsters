@@ -2,6 +2,8 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
+#include "game.h"
+
 #include <game_manager.h>
 #include <options.h>
 #include <music_manager.h>
@@ -90,16 +92,16 @@ void Game_Manager::set_camera () {
         camera.x = 0.0;
     }
 
-    if (camera.x + camera.w > 0 /**World size x*/ * camera_zoom) {
-        camera.x = 0 /**World size x*/ * camera_zoom - camera.w;
+    if (camera.x + camera.w > Game::getWorldWidth() * camera_zoom) {
+        camera.x = Game::getWorldWidth() * camera_zoom - camera.w;
     }
 
     if (camera.y < 0.0) {
         camera.y = 0.0;
     }
 
-    if (camera.y + camera.h > 0 /**World size y*/ * camera_zoom) {
-        camera.y = 0 /**World size y*/ * camera_zoom - camera.h;
+    if (camera.y + camera.h > Game::getWorldHeight() * camera_zoom) {
+        camera.y = Game::getWorldHeight() * camera_zoom - camera.h;
     }
 
     Screen_Shake::update_camera_after(camera);
