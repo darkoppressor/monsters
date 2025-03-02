@@ -12,6 +12,7 @@ class AiChoice {
     private:
         AiGoal::Type goalType;
         int32 priority;
+
     public:
         AiChoice (AiGoal::Type goalType, int32 priority);
         // Implemented for compatibility with Sorting::quick_sort

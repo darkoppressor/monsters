@@ -26,6 +26,7 @@ class EquipmentType {
         Health stabbingDefense;
 
         EquipmentType ();
+
         bool operator> (const EquipmentType& equipmentType) const;
 };
 

@@ -18,9 +18,10 @@ PixelBox PhysicsObject::getCollisionBox (double collisionReduction) const {
 
 PhysicsObject::PhysicsObject (const TileCoords& position, const String& sprite) {
     this->sprite.set_name(sprite);
-    this->position = PixelCoords(
-        position.x * Game_Constants::TILE_SIZE + Game_Constants::TILE_SIZE / 2.0 - this->sprite.get_width() / 2.0,
-        position.y * Game_Constants::TILE_SIZE + Game_Constants::TILE_SIZE / 2.0 - this->sprite.get_height() / 2.0);
+    this->position = PixelCoords(position.x * Game_Constants::TILE_SIZE + Game_Constants::TILE_SIZE / 2.0 -
+                                 this->sprite.get_width() / 2.0,
+                                 position.y * Game_Constants::TILE_SIZE + Game_Constants::TILE_SIZE / 2.0 -
+                                 this->sprite.get_height() / 2.0);
 }
 PixelCoords PhysicsObject::getPosition () const {
     return position;

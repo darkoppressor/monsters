@@ -11,6 +11,7 @@
 class Faction {
     private:
         UnorderedMap<String, Relationship> relationships;
+
     public:
         const Relationship& getRelationship(const String& faction) const;
         void addRelationship(const String& key, const Relationship& relationship);

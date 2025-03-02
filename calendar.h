@@ -15,6 +15,7 @@ class Calendar {
         uint16 minute;
         uint16 hour;
         uint16 day;
+
     public:
         Calendar ();
         void reset();

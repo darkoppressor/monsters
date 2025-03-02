@@ -132,9 +132,8 @@ void Game::generate_world () {
     tiles.resize(100, List<Tile>(100));
 
     for (size_t i = 0; i < 25; i++) {
-        addCreature(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
-                                                                                          getWorldTileHeight())), "human",
-                    "humanCitizens");
+        addCreature(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0, getWorldTileHeight())),
+                    "human", "humanCitizens");
         newCreatures.back().getEquipment().equip("crowbar", newCreatures.back().getTilePosition());
         newCreatures.back().getConsumables().add("medkit", newCreatures.back().getTilePosition());
         newCreatures.back().getConsumables().add("cheeseburger", newCreatures.back().getTilePosition());
@@ -142,32 +141,27 @@ void Game::generate_world () {
     }
 
     for (size_t i = 0; i < 50; i++) {
-        addCreature(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
-                                                                                          getWorldTileHeight())), "zombie",
-                    "zombies");
+        addCreature(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0, getWorldTileHeight())),
+                    "zombie", "zombies");
     }
 
     for (size_t i = 0; i < 1; i++) {
-        addEquipment(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
-                                                                                           getWorldTileHeight())),
+        addEquipment(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0, getWorldTileHeight())),
                      "crowbar");
     }
 
     for (size_t i = 0; i < 25; i++) {
-        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
-                                                                                            getWorldTileHeight())),
+        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0, getWorldTileHeight())),
                       "medkit");
     }
 
     for (size_t i = 0; i < 10; i++) {
-        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
-                                                                                            getWorldTileHeight())),
+        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0, getWorldTileHeight())),
                       "cheeseburger");
     }
 
     for (size_t i = 0; i < 5; i++) {
-        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0,
-                                                                                            getWorldTileHeight())),
+        addConsumable(TileCoords(rng.random_range(0, getWorldTileWidth()), rng.random_range(0, getWorldTileHeight())),
                       "waterBottle");
     }
 
@@ -187,7 +181,7 @@ void Game::tick () {
             creatures[i].handleCalendarHour(i);
         }
     } else if (tick.getType() == Tick::Type::day) {
-        // QQQ Does anything happen daily?
+        // TODO Does anything happen daily?
     }
 }
 
@@ -248,7 +242,7 @@ void Game::events () {
         newItems.erase(newItems.begin());
     }
 
-    ///Sound_Manager::set_listener(example_player.circle.x,example_player.circle.y,Game_Manager::camera_zoom);
+    // Sound_Manager::set_listener(example_player.circle.x,example_player.circle.y,Game_Manager::camera_zoom);
 
     if (++frame == Engine::UPDATE_RATE) {
         frame = 0;
@@ -277,11 +271,11 @@ void Game::render () {
 
 void Game::render_to_textures () {
     /**Rtt_Manager::set_render_target("example");
-       ///Render something here
-       Rtt_Manager::reset_render_target();*/
+       // Render something here Rtt_Manager::reset_render_target();*/
 }
 
-void Game::update_background () {}
+void Game::update_background () {
+}
 
 void Game::render_background () {
     Render::render_rectangle(0.0, 0.0, Game_Window::width(), Game_Window::height(), 1.0, "ui_black");

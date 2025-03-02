@@ -13,8 +13,10 @@ class Relationship {
             friendly,
             hostile
         };
+
     private:
         Type type;
+
     public:
         Relationship ();
         Relationship (const String& type);

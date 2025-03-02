@@ -38,8 +38,8 @@ Items ConsumableManager::getItemCount (const String& item) const {
 }
 
 bool ConsumableManager::canHold (const String& item) const {
-    return !consumables.count(item) ||
-           consumables.at(item) < Game_Data::getConsumableType(Game::getWorldName(), item).maximum;
+    return !consumables.count(item) || consumables.at(item) < Game_Data::getConsumableType(Game::getWorldName(),
+                                                                                           item).maximum;
 }
 
 bool ConsumableManager::hasHealthItem () const {

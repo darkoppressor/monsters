@@ -8,9 +8,14 @@
 
 using namespace std;
 
-Item::Item (const TileCoords& position, const String& type, const bool equipment):PhysicsObject(position, equipment ? Game_Data::getEquipmentType(
+Item::Item (const TileCoords& position, const String& type, const bool equipment):PhysicsObject(position,
+                                                                                                equipment ?
+                                                                                                Game_Data::
+                                                                                                getEquipmentType(
                                                                                                     Game::getWorldName(),
-                                                                                                    type).sprite : Game_Data::getConsumableType(
+                                                                                                    type).sprite :
+                                                                                                Game_Data::
+                                                                                                getConsumableType(
                                                                                                     Game::getWorldName(),
                                                                                                     type).sprite) {
     this->type = type;

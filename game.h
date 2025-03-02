@@ -27,6 +27,7 @@ class Game {
         static List<Item> newItems;
         static Quad creatureQuadtree;
         static Quad itemQuadtree;
+
     public:
         static RNG& getRng();
         static uint32 getFrame();

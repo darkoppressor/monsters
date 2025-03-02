@@ -15,6 +15,7 @@ class Damage {
         Chance chance;
         String type;
         Health amount;
+
     public:
         Damage (const Chance chance, const String& type, const Health amount);
         Health getAmount() const;

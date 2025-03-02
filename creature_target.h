@@ -11,6 +11,7 @@ class CreatureTarget {
     private:
         Index index;
         Pixels distance;
+
     public:
         CreatureTarget (const Index index, const Pixels distance);
         // Implemented for compatibility with Sorting::quick_sort

@@ -57,6 +57,7 @@ List<CreatureTarget> Creature::considerAttackingCreature (List<AiChoice>& choice
     PixelBox sight = getSight();
 
     Game::getCreatureQuadtree().get_objects(nearbyCreatures, sight);
+
     List<CreatureTarget> validTargets;
     Indexes seen;
 
@@ -69,8 +70,9 @@ List<CreatureTarget> Creature::considerAttackingCreature (List<AiChoice>& choice
 
                 if (creature.isAlive() && getRelationship(creature).getType() == Relationship::Type::hostile &&
                     Collision::check_rect(sight, creature.getBox())) {
-                    Pixels distanceToCreature =
-                        Math::get_distance_between_points(getPosition(), creature.getPosition());
+                    Pixels distanceToCreature = Math::get_distance_between_points(getPosition(),
+                                                                                  creature.getPosition());
+
                     validTargets.push_back(CreatureTarget(creatureIndex, distanceToCreature));
                 }
             }
@@ -123,16 +125,19 @@ List<ItemTarget> Creature::considerGettingItem (List<AiChoice>& choices) {
     PixelBox sight = getSight();
 
     Game::getItemQuadtree().get_objects(nearbyItems, sight);
+
     List<ItemTarget> validTargets;
     Indexes seen;
 
     for (const auto itemIndex : nearbyItems) {
         if (!seen.count(itemIndex)) {
             seen.emplace(itemIndex);
+
             const Item& item = Game::getItem(itemIndex);
 
             if (item.exists() && isItemDesired(item) && Collision::check_rect(sight, item.getBox())) {
                 Pixels distanceToItem = Math::get_distance_between_points(getPosition(), item.getPosition());
+
                 validTargets.push_back(ItemTarget(itemIndex, distanceToItem));
             }
         }
@@ -147,12 +152,15 @@ List<ItemTarget> Creature::considerGettingItem (List<AiChoice>& choices) {
 void Creature::think (const Index index) {
     if (isAlive() && !goal.exists() && canCheckForAiGoal(index)) {
         List<AiChoice> choices;
+
         considerUsingConsumable(choices);
+
         List<CreatureTarget> validCreatureTargets = considerAttackingCreature(choices, index);
         List<ItemTarget> validItemTargets = considerGettingItem(choices);
 
         if (choices.size() > 0) {
             Sorting::quick_sort(choices);
+
             Index choiceIndex = Game::getRng().weighted_random_range(0, choices.size() - 1, 0, RNG::Weight::STRONG);
             const AiChoice choice = choices[choiceIndex];
 
@@ -164,15 +172,17 @@ void Creature::think (const Index index) {
                 goal.setUseWaterItem();
             } else if (choice.getGoalType() == AiGoal::Type::attackCreatureMelee) {
                 Sorting::quick_sort(validCreatureTargets);
-                Index validTargetIndex = Game::getRng().weighted_random_range(0,
-                                                                              validCreatureTargets.size() - 1, 0,
+
+                Index validTargetIndex = Game::getRng().weighted_random_range(0, validCreatureTargets.size() - 1, 0,
                                                                               RNG::Weight::STRONG);
+
                 goal.setAttackCreatureMelee(validCreatureTargets[validTargetIndex].getIndex());
             } else if (choice.getGoalType() == AiGoal::Type::getItem) {
                 Sorting::quick_sort(validItemTargets);
-                Index validTargetIndex = Game::getRng().weighted_random_range(0,
-                                                                              validItemTargets.size() - 1, 0,
+
+                Index validTargetIndex = Game::getRng().weighted_random_range(0, validItemTargets.size() - 1, 0,
                                                                               RNG::Weight::STRONG);
+
                 goal.setGetItem(validItemTargets[validTargetIndex].getIndex());
             }
         }
@@ -222,6 +232,7 @@ void Creature::act (const Index index) {
                                                           goal.getTargetPosition()) <=
                         getGetItemRange() * Game_Constants::TILE_SIZE) {
                         brake();
+
                         const Index itemIndex = goal.getTargetIndex();
                         Item& item = Game::getItem(itemIndex);
 

@@ -19,23 +19,26 @@ void Engine::render_dev_info () {
     string msg = "";
 
     if (Game_Manager::in_progress) {
-        msg += "Camera Position: " + Strings::num_to_string(Game_Manager::camera.x) + ", " + Strings::num_to_string(
-            Game_Manager::camera.y) + "\n";
+        msg += "Camera Position: " + Strings::num_to_string(Game_Manager::camera.x) + ", " +
+               Strings::num_to_string(Game_Manager::camera.y) + "\n";
         msg += "Camera Size: " + Strings::num_to_string(Game_Manager::camera.w / Game_Manager::camera_zoom) + ", " +
                Strings::num_to_string(Game_Manager::camera.h / Game_Manager::camera_zoom) + "\n";
         msg += "Camera Zoom: " + Strings::num_to_string(Game_Manager::camera_zoom) + "\n";
 
         for (Index i = 0; i < Game::getCreatureCount(); i++) {
             Creature& creature = Game::getCreature(i);
+
             msg += "\nCreature " + Strings::num_to_string(i) + ":\n";
+
             PixelBox box = creature.getBox();
+
             msg += "  Position: " + Strings::num_to_string(box.x) + ", " + Strings::num_to_string(box.y) + "\n";
-            msg += "  Health: " + Strings::num_to_string(creature.getHealth()) + "/" + Strings::num_to_string(
-                creature.getMaximumHealth()) + "\n";
-            msg += "  Food: " + Strings::num_to_string(creature.getFood()) + "/" + Strings::num_to_string(
-                creature.getMaximumFood()) + "\n";
-            msg += "  Water: " + Strings::num_to_string(creature.getWater()) + "/" + Strings::num_to_string(
-                creature.getMaximumWater()) + "\n";
+            msg += "  Health: " + Strings::num_to_string(creature.getHealth()) + "/" +
+                   Strings::num_to_string(creature.getMaximumHealth()) + "\n";
+            msg += "  Food: " + Strings::num_to_string(creature.getFood()) + "/" +
+                   Strings::num_to_string(creature.getMaximumFood()) + "\n";
+            msg += "  Water: " + Strings::num_to_string(creature.getWater()) + "/" +
+                   Strings::num_to_string(creature.getMaximumWater()) + "\n";
             msg += "  Race: " + creature.getRace() + "\n";
             msg += "  Faction: " + creature.getFaction() + "\n";
             msg += "  Goal:\n";
@@ -48,8 +51,8 @@ void Engine::render_dev_info () {
                    Strings::num_to_string(creature.getAttack().getCooldownCounter().getCount()) + "\n";
             msg += "    Preparing: " +
                    Strings::bool_to_string(creature.getAttack().getPreparationCounter().isCounting()) + "\n";
-            msg += "    Preparation count: " + Strings::num_to_string(
-                creature.getAttack().getPreparationCounter().getCount()) + "\n";
+            msg += "    Preparation count: " +
+                   Strings::num_to_string(creature.getAttack().getPreparationCounter().getCount()) + "\n";
             msg += "  Equipment:\n";
             msg += "    Melee weapon: " +
                    (creature.getEquipment().hasMeleeWeapon() ? creature.getEquipment().getMeleeWeapon().displayName :
@@ -75,8 +78,8 @@ void Engine::render_dev_info () {
             }
         }
 
-        Render::render_rectangle(2.0, y, Strings::longest_line(msg) * font->spacing_x, Strings::newline_count(
-                                     msg) * font->spacing_y, 0.75, "ui_black");
+        Render::render_rectangle(2.0, y, Strings::longest_line(msg) * font->spacing_x,
+                                 Strings::newline_count(msg) * font->spacing_y, 0.75, "ui_black");
         font->show(2.0, y, msg, "red");
     }
 }

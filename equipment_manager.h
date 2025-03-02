@@ -16,6 +16,7 @@ class EquipmentManager {
         String handArmor;
         String legArmor;
         String footArmor;
+
     public:
         EquipmentManager ();
         bool hasMeleeWeapon() const;

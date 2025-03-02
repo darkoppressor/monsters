@@ -15,8 +15,10 @@ class Tick {
             hour,
             day
         };
+
     private:
         Type type;
+
     public:
         Tick (const Type type);
         Type getType() const;

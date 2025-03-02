@@ -13,6 +13,7 @@ class Item: public PhysicsObject {
         String type;
         bool equipment;
         bool collected;
+
     public:
         Item (const TileCoords& position, const String& type, const bool equipment);
         String getType() const;
