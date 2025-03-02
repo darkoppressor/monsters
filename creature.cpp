@@ -20,8 +20,8 @@ double Creature::getMass () const {
 
     const Race& race = Game_Data::getRace(this->race);
 
-    mass += race.stats.mass != Stats::NO_MASS ? race.stats.mass : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.mass;
+    mass += race.stats.mass != Stats::NO_MASS ? race.stats.mass : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                             race.category).stats.mass;
 
     return mass;
 }
@@ -29,41 +29,47 @@ double Creature::getMoveForce () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.moveForce !=
-           Stats::NO_MOVE_FORCE ? race.stats.moveForce * getHealthModifier() : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.moveForce * getHealthModifier();
+           Stats::NO_MOVE_FORCE ? race.stats.moveForce *
+           getHealthModifier() : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                            race.category).stats.moveForce * getHealthModifier();
 }
 double Creature::getMaximumSpeed () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.maximumSpeed !=
-           Stats::NO_MAXIMUM_SPEED ? race.stats.maximumSpeed * getHealthModifier() : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.maximumSpeed * getHealthModifier();
+           Stats::NO_MAXIMUM_SPEED ? race.stats.maximumSpeed *
+           getHealthModifier() : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                            race.category).stats.maximumSpeed * getHealthModifier();
 }
 uint32 Creature::getCollisionSteps () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.collisionSteps !=
-           Stats::NO_COLLISION_STEPS ? race.stats.collisionSteps : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.collisionSteps;
+           Stats::NO_COLLISION_STEPS ? race.stats.collisionSteps : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                              race.category).stats.
+           collisionSteps;
 }
 Health Creature::getHunger () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.hunger != Stats::NO_HUNGER ? race.stats.hunger : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.hunger;
+    return race.stats.hunger != Stats::NO_HUNGER ? race.stats.hunger : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                                  race.category).stats.
+           hunger;
 }
 Health Creature::getThirst () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.thirst != Stats::NO_THIRST ? race.stats.thirst : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.thirst;
+    return race.stats.thirst != Stats::NO_THIRST ? race.stats.thirst : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                                  race.category).stats.
+           thirst;
 }
 double Creature::getMeleeSkill () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeSkill !=
-           Stats::NO_MELEE_SKILL ? race.stats.meleeSkill * getWaterModifier() : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeSkill * getWaterModifier();
+           Stats::NO_MELEE_SKILL ? race.stats.meleeSkill *
+           getWaterModifier() : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                           race.category).stats.meleeSkill * getWaterModifier();
 }
 Chance Creature::getMeleeDamageChance () const {
     if (equipment.hasMeleeWeapon()) {
@@ -73,8 +79,9 @@ Chance Creature::getMeleeDamageChance () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeDamageChance !=
-           Stats::NO_MELEE_DAMAGE_CHANCE ? race.stats.meleeDamageChance * getMeleeSkill() : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeDamageChance * getMeleeSkill();
+           Stats::NO_MELEE_DAMAGE_CHANCE ? race.stats.meleeDamageChance *
+           getMeleeSkill() : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                        race.category).stats.meleeDamageChance * getMeleeSkill();
 }
 String Creature::getMeleeAttackDamageType () const {
     if (equipment.hasMeleeWeapon()) {
@@ -84,8 +91,8 @@ String Creature::getMeleeAttackDamageType () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeAttackDamageType !=
-           Stats::NO_MELEE_ATTACK_DAMAGE_TYPE ? race.stats.meleeAttackDamageType : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeAttackDamageType;
+           Stats::NO_MELEE_ATTACK_DAMAGE_TYPE ? race.stats.meleeAttackDamageType :
+           Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.meleeAttackDamageType;
 }
 Health Creature::getMeleeAttackMinimumDamage () const {
     Health minimumDamage = 0;
@@ -97,9 +104,8 @@ Health Creature::getMeleeAttackMinimumDamage () const {
     const Race& race = Game_Data::getRace(this->race);
 
     minimumDamage += race.stats.meleeAttackMinimumDamage !=
-                     Stats::NO_MELEE_ATTACK_MINIMUM_DAMAGE ? race.stats.meleeAttackMinimumDamage : Game_Data::
-                     getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeAttackMinimumDamage;
+                     Stats::NO_MELEE_ATTACK_MINIMUM_DAMAGE ? race.stats.meleeAttackMinimumDamage :
+                     Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.meleeAttackMinimumDamage;
 
     return minimumDamage;
 }
@@ -113,9 +119,8 @@ Health Creature::getMeleeAttackMaximumDamage () const {
     const Race& race = Game_Data::getRace(this->race);
 
     maximumDamage += race.stats.meleeAttackMaximumDamage !=
-                     Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE ? race.stats.meleeAttackMaximumDamage : Game_Data::
-                     getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeAttackMaximumDamage;
+                     Stats::NO_MELEE_ATTACK_MAXIMUM_DAMAGE ? race.stats.meleeAttackMaximumDamage :
+                     Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.meleeAttackMaximumDamage;
 
     return maximumDamage;
 }
@@ -127,41 +132,46 @@ Tiles Creature::getMeleeAttackRange () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeAttackRange !=
-           Stats::NO_MELEE_ATTACK_RANGE ? race.stats.meleeAttackRange : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeAttackRange;
+           Stats::NO_MELEE_ATTACK_RANGE ? race.stats.meleeAttackRange : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                                   race.category).stats.
+           meleeAttackRange;
 }
 Count Creature::getMeleeAttackCooldown () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeAttackCooldown !=
-           Stats::NO_MELEE_ATTACK_COOLDOWN ? race.stats.meleeAttackCooldown : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeAttackCooldown;
+           Stats::NO_MELEE_ATTACK_COOLDOWN ? race.stats.meleeAttackCooldown :
+           Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.meleeAttackCooldown;
 }
 Count Creature::getMeleeAttackPreparation () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.meleeAttackPreparation !=
-           Stats::NO_MELEE_ATTACK_PREPARATION ? race.stats.meleeAttackPreparation : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.meleeAttackPreparation;
+           Stats::NO_MELEE_ATTACK_PREPARATION ? race.stats.meleeAttackPreparation :
+           Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.meleeAttackPreparation;
 }
 double Creature::getDefenseSkill () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.defenseSkill !=
-           Stats::NO_DEFENSE_SKILL ? race.stats.defenseSkill * getWaterModifier() : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.defenseSkill * getWaterModifier();
+           Stats::NO_DEFENSE_SKILL ? race.stats.defenseSkill *
+           getWaterModifier() : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                           race.category).stats.defenseSkill * getWaterModifier();
 }
 Tiles Creature::getGetItemRange () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.getItemRange != Stats::NO_GET_ITEM_RANGE ? race.stats.getItemRange : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.getItemRange;
+    return race.stats.getItemRange !=
+           Stats::NO_GET_ITEM_RANGE ? race.stats.getItemRange : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                           race.category).stats.
+           getItemRange;
 }
 Tiles Creature::getSightRange () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.sightRange != Stats::NO_SIGHT_RANGE ? race.stats.sightRange : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.sightRange;
+    return race.stats.sightRange !=
+           Stats::NO_SIGHT_RANGE ? race.stats.sightRange : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                      race.category).stats.sightRange;
 }
 bool Creature::isUndead () const {
     const Race& race = Game_Data::getRace(this->race);
@@ -172,26 +182,28 @@ bool Creature::isUndead () const {
 bool Creature::canGetItems () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.definesCanGetItems ? race.stats.canGetItems : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.canGetItems;
+    return race.stats.definesCanGetItems ? race.stats.canGetItems : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                               race.category).stats.
+           canGetItems;
 }
 bool Creature::canUseItems () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.definesCanUseItems ? race.stats.canUseItems : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.canUseItems;
+    return race.stats.definesCanUseItems ? race.stats.canUseItems : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                               race.category).stats.
+           canUseItems;
 }
 bool Creature::hungers () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.definesHungers ? race.stats.hungers : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.hungers;
+    return race.stats.definesHungers ? race.stats.hungers : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                       race.category).stats.hungers;
 }
 bool Creature::thirsts () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.definesThirsts ? race.stats.thirsts : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.thirsts;
+    return race.stats.definesThirsts ? race.stats.thirsts : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                       race.category).stats.thirsts;
 }
 
 double Creature::getHealthModifier () const {
@@ -280,9 +292,11 @@ void Creature::thirst () {
     }
 }
 
-Creature::Creature (const TileCoords& position, const String& race, const String& faction):PhysicsObject(position, Game_Data::getRace(
-                                                                                                             race).sprite)
-{
+Creature::Creature (const TileCoords& position, const String& race, const String& faction):PhysicsObject(position,
+                                                                                                         Game_Data::
+                                                                                                         getRace(
+                                                                                                             race).
+                                                                                                         sprite) {
     this->race = race;
     this->faction = faction;
     food = getMaximumFood();
@@ -321,20 +335,24 @@ Health Creature::getMaximumHealth () const {
     const Race& race = Game_Data::getRace(this->race);
 
     return race.stats.maximumHealth !=
-           Stats::NO_MAXIMUM_HEALTH ? race.stats.maximumHealth * getFoodModifier() : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.maximumHealth * getFoodModifier();
+           Stats::NO_MAXIMUM_HEALTH ? race.stats.maximumHealth *
+           getFoodModifier() : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                          race.category).stats.maximumHealth * getFoodModifier();
 }
 Health Creature::getMaximumFood () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.maximumFood != Stats::NO_MAXIMUM_FOOD ? race.stats.maximumFood : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.maximumFood;
+    return race.stats.maximumFood !=
+           Stats::NO_MAXIMUM_FOOD ? race.stats.maximumFood : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                        race.category).stats.maximumFood;
 }
 Health Creature::getMaximumWater () const {
     const Race& race = Game_Data::getRace(this->race);
 
-    return race.stats.maximumWater != Stats::NO_MAXIMUM_WATER ? race.stats.maximumWater : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.maximumWater;
+    return race.stats.maximumWater !=
+           Stats::NO_MAXIMUM_WATER ? race.stats.maximumWater : Game_Data::getRaceCategory(Game::getWorldName(),
+                                                                                          race.category).stats.
+           maximumWater;
 }
 Chance Creature::getDamageAvoidanceChance () const {
     Chance average = 0;
@@ -368,8 +386,8 @@ Chance Creature::getDamageAvoidanceChance () const {
     const Race& race = Game_Data::getRace(this->race);
 
     average += race.stats.damageAvoidanceChance !=
-               Stats::NO_DAMAGE_AVOIDANCE_CHANCE ? race.stats.damageAvoidanceChance : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.damageAvoidanceChance;
+               Stats::NO_DAMAGE_AVOIDANCE_CHANCE ? race.stats.damageAvoidanceChance :
+               Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.damageAvoidanceChance;
 
     return average / count * getDefenseSkill();
 }
@@ -405,8 +423,8 @@ Health Creature::getSmashingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
 
     average += race.stats.smashingDefense !=
-               Stats::NO_SMASHING_DEFENSE ? race.stats.smashingDefense : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.smashingDefense;
+               Stats::NO_SMASHING_DEFENSE ? race.stats.smashingDefense :
+               Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.smashingDefense;
 
     return average / count;
 }
@@ -442,8 +460,8 @@ Health Creature::getSlashingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
 
     average += race.stats.slashingDefense !=
-               Stats::NO_SLASHING_DEFENSE ? race.stats.slashingDefense : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.slashingDefense;
+               Stats::NO_SLASHING_DEFENSE ? race.stats.slashingDefense :
+               Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.slashingDefense;
 
     return average / count;
 }
@@ -479,8 +497,8 @@ Health Creature::getStabbingDefense () const {
     const Race& race = Game_Data::getRace(this->race);
 
     average += race.stats.stabbingDefense !=
-               Stats::NO_STABBING_DEFENSE ? race.stats.stabbingDefense : Game_Data::getRaceCategory(
-        Game::getWorldName(), race.category).stats.stabbingDefense;
+               Stats::NO_STABBING_DEFENSE ? race.stats.stabbingDefense :
+               Game_Data::getRaceCategory(Game::getWorldName(), race.category).stats.stabbingDefense;
 
     return average / count;
 }
@@ -538,11 +556,12 @@ void Creature::drink (Health water) {
 }
 
 void Creature::meleeAttack (const Index index, const Index creatureIndex) {
-    Damage counterattack =
-        Game::getCreature(creatureIndex).takeMeleeDamage(creatureIndex,
-                                                         Damage(getMeleeDamageChance(), getMeleeAttackDamageType(),
-                                                                Game::getRng().random_range(getMeleeAttackMinimumDamage(),
-                                                                                            getMeleeAttackMaximumDamage())));
+    Damage counterattack = Game::getCreature(creatureIndex).takeMeleeDamage(creatureIndex,
+                                                                            Damage(getMeleeDamageChance(),
+                                                                                   getMeleeAttackDamageType(),
+                                                                                   Game::getRng().random_range(
+                                                                                       getMeleeAttackMinimumDamage(),
+                                                                                       getMeleeAttackMaximumDamage())));
 
     if (counterattack.getAmount() > 0) {
         takeMeleeDamage(index, counterattack);

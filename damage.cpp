@@ -17,9 +17,9 @@ Health Damage::getAmount () const {
 }
 
 bool Damage::damages (const Creature& creature) const {
-    return Game::getRng().random_range(0,
-                                       99) < chance &&
-           Game::getRng().random_range(0, 99) >= creature.getDamageAvoidanceChance();
+    return Game::getRng().random_range(0, 99) < chance && Game::getRng().random_range(0,
+                                                                                      99) >=
+           creature.getDamageAvoidanceChance();
 }
 Health Damage::getModifiedAmount (const Creature& creature) const {
     if (type == "smashing") {

@@ -18,9 +18,11 @@ class AiGoal {
             attackCreatureMelee,
             getItem
         };
+
     private:
         Type type;
         Index targetIndex;
+
     public:
         AiGoal ();
         Type getType() const;

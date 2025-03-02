@@ -20,6 +20,7 @@ class PhysicsObject {
         // newtons, degrees
         Vector force;
         Sprite sprite;
+
         PixelBox getCollisionBox(double collisionReduction) const;
     public:
         PhysicsObject (const TileCoords& position, const String& sprite);

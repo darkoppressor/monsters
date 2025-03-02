@@ -11,6 +11,7 @@ class ItemTarget {
     private:
         Index index;
         Pixels distance;
+
     public:
         ItemTarget (const Index index, const Pixels distance);
         // Implemented for compatibility with Sorting::quick_sort

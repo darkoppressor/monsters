@@ -11,6 +11,7 @@ class Counter {
     private:
         uint16 count;
         bool counting;
+
     public:
         Counter ();
         Counter (const uint16 count);

@@ -11,6 +11,7 @@
 class ConsumableManager {
     private:
         UnorderedMap<String, Items> consumables;
+
     public:
         void add(const String& item, const TileCoords& position);
 

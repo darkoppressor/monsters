@@ -17,8 +17,9 @@ using namespace std;
 UnorderedMap<String, World> Game_Data::worlds;
 UnorderedMap<String, Race> Game_Data::races;
 
-///Don't forget to increment this for each progress item in load_data_game() below
+// Don't forget to increment this for each progress item in load_data_game() below
 const int Game_Data::game_data_load_item_count = 2;
+
 void Game_Data::load_data_game (Progress_Bar& bar) {
     bar.progress("Loading worlds");
     Data_Manager::load_data("world");
@@ -232,6 +233,7 @@ size_t Game_Data::loadFaction (vector<string>& lines, size_t lineIndex, World& w
             return i;
         } else {
             vector<string> data;
+
             boost::algorithm::split(data, line, boost::algorithm::is_any_of(":"));
 
             if (data.size() == 2) {

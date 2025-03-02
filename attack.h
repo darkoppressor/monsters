@@ -12,6 +12,7 @@ class Attack {
         bool inProgress;
         Counter cooldown;
         Counter preparation;
+
     public:
         Attack ();
         bool isInProgress() const;
