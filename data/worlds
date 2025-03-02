@@ -1,0 +1,180 @@
+<world>
+	name:default
+	deadBecomeRace:
+	deadBecomeFaction:
+
+	<raceCategory>
+		name:human
+		mass:70.0
+		moveForce:100.0
+		maximumSpeed:3.6
+		collisionSteps:1
+		maximumHealth:10
+		maximumFood:300
+		maximumWater:150
+		hunger:1
+		thirst:1
+		meleeSkill:0.9
+		meleeDamageChance:75
+		meleeAttackDamageType:smashing
+		meleeAttackMinimumDamage:1
+		meleeAttackMaximumDamage:2
+		meleeAttackRange:4
+		meleeAttackCooldown:200
+		meleeAttackPreparation:50
+		defenseSkill:0.1
+		damageAvoidanceChance:10
+		smashingDefense:0
+		slashingDefense:0
+		stabbingDefense:0
+		getItemRange:2
+		sightRange:20
+		undead:false
+		canGetItems:true
+		canUseItems:true
+		hungers:true
+		thirsts:true
+	</raceCategory>
+
+	<raceCategory>
+		name:zombie
+		mass:40.0
+		moveForce:25.0
+		maximumSpeed:0.9
+		collisionSteps:1
+		maximumHealth:5
+		maximumFood:0
+		maximumWater:0
+		hunger:0
+		thirst:0
+		meleeSkill:0.5
+		meleeDamageChance:100
+		meleeAttackDamageType:smashing
+		meleeAttackMinimumDamage:2
+		meleeAttackMaximumDamage:3
+		meleeAttackRange:4
+		meleeAttackCooldown:400
+		meleeAttackPreparation:100
+		defenseSkill:0.05
+		damageAvoidanceChance:100
+		smashingDefense:0
+		slashingDefense:0
+		stabbingDefense:0
+		getItemRange:2
+		sightRange:10
+		undead:true
+		canGetItems:false
+		canUseItems:false
+		hungers:false
+		thirsts:false
+	</raceCategory>
+
+	<faction>
+		name:humanCitizens
+		humanCitizens:friendly
+		zombies:hostile
+	</faction>
+
+	<faction>
+		name:zombies
+		humanCitizens:hostile
+		zombies:friendly
+	</faction>
+
+	<equipment>
+		name:crowbar
+		displayName:Crowbar
+		sprite:crowbar
+		slot:meleeWeapon
+		mass:2.3
+		damageChance:80
+		damageType:smashing
+		minimumDamage:1
+		maximumDamage:2
+		range:5
+	</equipment>
+
+	<equipment>
+		name:bandana
+		displayName:Bandana
+		sprite:bandana
+		slot:headArmor
+		mass:0.05
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:leatherJacket
+		displayName:Leather jacket
+		sprite:leatherJacket
+		slot:torsoArmor
+		mass:2.3
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:leatherGloves
+		displayName:Leather gloves
+		sprite:leatherGloves
+		slot:handArmor
+		mass:0.5
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:denimPants
+		displayName:Denim pants
+		sprite:denimPants
+		slot:legArmor
+		mass:2.0
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<equipment>
+		name:leatherBoots
+		displayName:Leather boots
+		sprite:leatherBoots
+		slot:footArmor
+		mass:1.1
+		damageAvoidanceChance:15
+		smashingDefense:0
+		slashingDefense:1
+		stabbingDefense:0
+	</equipment>
+
+	<consumable>
+		name:medkit
+		displayName:Medkit
+		sprite:medkit
+		maximum:1
+		health:10
+	</consumable>
+
+	<consumable>
+		name:cheeseburger
+		displayName:Cheeseburger
+		sprite:cheeseburger
+		maximum:2
+		food:150
+	</consumable>
+
+	<consumable>
+		name:waterBottle
+		displayName:Water bottle
+		sprite:waterBottle
+		maximum:2
+		water:75
+	</consumable>
+</world>

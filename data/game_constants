@@ -43,8 +43,197 @@
 	type:double
 </game_constant>
 
-/*<game_constant>
-	name:example_constant
+<game_constant>
+	// pixels
+	// 1 pixel = pixels_to_meters meters
+	name:pixels_to_meters
+	value:0.1143
+	type:double
+</game_constant>
+
+<game_constant>
+	// pixels
+	name:tile_size
+	value:8.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// Valid range: [1, logic update rate]
+	// There will be ai_goal_selection_period - 1 frames in between each AI Goal selection opportunity
+	// AI Goal selection is additionally staggered among the Creatures
+	name:ai_goal_selection_period
+	value:30
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:ticks_per_minute
+	value:30
+	type:uint16_t
+</game_constant>
+
+<game_constant>
+	name:minutes_per_hour
+	value:60
+	type:uint16_t
+</game_constant>
+
+<game_constant>
+	name:hours_per_day
+	value:24
+	type:uint16_t
+</game_constant>
+
+<game_constant>
+	name:maximum_dead_bodies
+	value:1024
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:need_threshold_great
+	value:0.9
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:need_threshold_good
+	value:0.75
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:need_threshold_ok
+	value:0.5
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:need_threshold_bad
+	value:0.25
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:health_modifier_great
 	value:1.0
 	type:double
-</game_constant>*/
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:health_modifier_good
+	value:0.9
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:health_modifier_ok
+	value:0.8
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:health_modifier_bad
+	value:0.7
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:health_modifier_terrible
+	value:0.5
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:food_modifier_great
+	value:1.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:food_modifier_good
+	value:1.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:food_modifier_ok
+	value:0.9
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:food_modifier_bad
+	value:0.85
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:food_modifier_terrible
+	value:0.75
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:food_health_loss
+	value:0.05
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:water_modifier_great
+	value:1.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:water_modifier_good
+	value:1.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:water_modifier_ok
+	value:0.9
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:water_modifier_bad
+	value:0.85
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:water_modifier_terrible
+	value:0.75
+	type:double
+</game_constant>
+
+<game_constant>
+	// [0.0, 1.0]
+	name:water_health_loss
+	value:0.1
+	type:double
+</game_constant>

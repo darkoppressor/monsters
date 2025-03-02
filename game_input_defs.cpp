@@ -2,6 +2,8 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
+#include "game.h"
+
 #include <game_manager.h>
 #include <network_engine.h>
 #include <network_server.h>
@@ -13,7 +15,7 @@
 using namespace std;
 
 void Game_Manager::handle_drag_and_drop (string file) {
-    ///Do something with file
+    // Do something with file
 }
 
 void Game_Manager::prepare_for_input () {
@@ -33,7 +35,7 @@ void Game_Manager::handle_command_states_multiplayer () {
                 if (!paused) {
                     // Example multiplayer command state
                     /**if(Network_Engine::clients[i].game_command_state("some_command")){
-                        ///Deal with command state here
+                        // Deal with command state here
                        }*/
                 }
             }
@@ -51,7 +53,7 @@ void Game_Manager::handle_game_commands_multiplayer () {
                     if (!paused) {
                         // Example multiplayer command
                         /**if(command_name=="some_command"){
-                            ///Deal with command here
+                            // Deal with command here
                            }*/
                     }
                 }
@@ -71,6 +73,74 @@ void Game_Manager::handle_input_states_gui () {
     if (in_progress) {
         if (Object_Manager::game_command_state("scoreboard")) {
             display_scoreboard = true;
+        }
+
+        // Move the camera via directional keys
+
+        if (Game::moveInputState("left")) {
+            cam_state = "left";
+        }
+
+        if (Game::moveInputState("up")) {
+            cam_state = "up";
+        }
+
+        if (Game::moveInputState("right")) {
+            cam_state = "right";
+        }
+
+        if (Game::moveInputState("down")) {
+            cam_state = "down";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up")) {
+            cam_state = "left_up";
+        }
+
+        if (Game::moveInputState("up") && Game::moveInputState("right")) {
+            cam_state = "right_up";
+        }
+
+        if (Game::moveInputState("right") && Game::moveInputState("down")) {
+            cam_state = "right_down";
+        }
+
+        if (Game::moveInputState("down") && Game::moveInputState("left")) {
+            cam_state = "left_down";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("right")) {
+            cam_state = "left";
+        }
+
+        if (Game::moveInputState("up") && Game::moveInputState("down")) {
+            cam_state = "up";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up") && Game::moveInputState("right")) {
+            cam_state = "left_up";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("down") && Game::moveInputState("right")) {
+            cam_state = "left_down";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up") && Game::moveInputState("down")) {
+            cam_state = "left_up";
+        }
+
+        if (Game::moveInputState("up") && Game::moveInputState("right") && Game::moveInputState("down")) {
+            cam_state = "right_up";
+        }
+
+        if (Game::moveInputState("left") && Game::moveInputState("up") && Game::moveInputState("right") &&
+            Game::moveInputState("down")) {
+            cam_state = "left_up";
+        }
+
+        if (!Game::moveInputState("left") && !Game::moveInputState("up") && !Game::moveInputState("right") &&
+            !Game::moveInputState("down")) {
+            cam_state = "none";
         }
     }
 }
@@ -121,22 +191,22 @@ bool Game_Manager::handle_game_command_gui (string command_name) {
 bool Game_Manager::handle_game_command (string command_name) {
     const uint8_t* keystates = SDL_GetKeyboardState(NULL);
 
-    ///DEV COMMANDS
+    // DEV COMMANDS
     if (Options::dev && keystates[SDL_SCANCODE_F1]) {
         // Example dev command
         /**if(command_name=="some_dev_command"){
-            ///Dev command here.
+            // Dev command here.
 
             return true;
            }*/
     }
 
-    ///END OF DEV COMMANDS
+    // END OF DEV COMMANDS
 
     if (!paused) {
         // Example command
         /**if(command_name=="some_command"){
-            ///Command here
+            // Command here
 
             return true;
            }*/

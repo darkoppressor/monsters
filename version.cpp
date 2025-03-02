@@ -7,7 +7,7 @@
 using namespace std;
 
 string Engine_Version::get_year () {
-    return "2020"; // YEAR
+    return "2025"; // YEAR
 }
 
 string Engine_Version::get_month () {
@@ -26,8 +26,8 @@ int Engine_Version::get_minor () {
     return 0; // MINOR
 }
 
-int Engine_Version::get_micro () {
-    return 1; // MICRO
+int Engine_Version::get_patch () {
+    return 1; // PATCH
 }
 
 string Engine_Version::get_status () {

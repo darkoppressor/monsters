@@ -14,24 +14,19 @@ Also if I could get awesome Warhammer 40K races (ish) to battle each other that 
 
 There should definitely be a cover system for combat that makes use of tiles
 
-Should begin with a simple prototype:
-Just an empty field of grass
-Humans and zombies exist
-Make them murder each other
+TODO:
+STILL NEED TO IMPLEMENT AI GOAL WEIGHTS
 
-Creatures exist
-Creatures have stats
-Creatures have AI behaviors which are used by the creature AI to determine what to do
-Creatures have a race
-Creatures have a faction
-Races have a category
-Races have base stats
-Races have weights for all AI behaviors
-Race categories have their values defined by the world, so that each world has its own set of rules for different races (e.g., you can set the rules for zombies so that they are slow or fast, etc.)
-Race categories have base stats
-Race categories have weights for all AI behaviors
+For creatures:
+Add ranged attack stats
 
-Factions have relationships with all factions (including themselves), and these relationships govern interactions between creatures
+Other potential damage types:
+Explosive
+Burning
+Ripping
+
+How might I implement things like thrown grenades and molotov cocktails?
+
 For example, humans might use some flocking behavior with other friendly humans, so that they coalesce into cooperating groups
 Or humans might attack zombies on sight or retreat from them
 
@@ -57,8 +52,24 @@ Buildings are defined by the tiles that make them up
 A tile can be in 0 or 1 buildings at any time
 Buildings have a type
 
-AI inputs are all considered when creature needs to think
-These inputs are combined with the creature's AI behavior weights to determine a behavior to use
-
 AI behaviors include things like:
 What kind of tile to look for and move to (e.g., it is daytime and a human with a job moves to the nearest building with a type that matches that job
+
+Creatures need to be able to have a base that they defend and return to
+They don't have to have a base
+A base should be a simple tile and radius
+A creature picks its base based on various tile factors (and maybe nearby allied bases)
+A creature can abandon their base
+
+Creatures might have a preferred temperature
+Climate, time of day, weather, and tiles all combine to determine local temperature for a creature
+
+Creatures have sleep need
+Ticks down like other needs
+Refilled by sleeping
+Tiles have restful rating
+Creatures try to sleep on a closer, higher rating tile
+
+Tiles should be able to provide cover from ranged attacks
+Can I make creatures know how to use or bypass cover?
+If a creature is trying to close to attack a creature, it should consider its target's cover
