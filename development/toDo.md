@@ -1,3 +1,5 @@
+# To do
+
 Creatures have a maximum mass for equipment they can use
 Starting equipment chances for races
 

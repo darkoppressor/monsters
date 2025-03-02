@@ -1,3 +1,5 @@
+# Ideas
+
 Simulation toy / game
 Singleplayer
 2D tile graphics
