@@ -9,26 +9,26 @@ This is the source code for a game currently being developed by Cheese and Bacon
 
 ## For players
 
-[System requirements](docs/systemRequirements.md)
-[Changelog](docs/changelog.md)
+* [System requirements](docs/systemRequirements.md)
+* [Changelog](docs/changelog.md)
 
 ## For developers
 
-[Ideas](development/ideas.md)
-[To do](development/toDo.md)
+* [Ideas](development/ideas.md)
+* [To do](development/toDo.md)
 
-[AI goals](development/design/aiGoals.md)
-[Consumable](development/design/consumable.md)
-[Creature](development/design/creature.md)
-[Damage Type](development/design/damageType.md)
-[Equipment](development/design/equipment.md)
-[Faction](development/design/faction.md)
-[Item](development/design/item.md)
-[Race](development/design/race.md)
-[Race Category](development/design/raceCategory.md)
-[Relationship](development/design/relationship.md)
-[Stats](development/design/stats.md)
-[World](development/design/world.md)
+* [AI goals](development/design/aiGoals.md)
+* [Consumable](development/design/consumable.md)
+* [Creature](development/design/creature.md)
+* [Damage Type](development/design/damageType.md)
+* [Equipment](development/design/equipment.md)
+* [Faction](development/design/faction.md)
+* [Item](development/design/item.md)
+* [Race](development/design/race.md)
+* [Race Category](development/design/raceCategory.md)
+* [Relationship](development/design/relationship.md)
+* [Stats](development/design/stats.md)
+* [World](development/design/world.md)
 
 ### Updating the version
 
@@ -37,7 +37,7 @@ This is the source code for a game currently being developed by Cheese and Bacon
 
 In version.cpp:
 
-        Update the version series in Engine_Version::populate_version_series to include the new version
+    Update the version series in Engine_Version::populate_version_series to include the new version
 
 When an updated version has been pushed to main, tag the commit locally and remotely:
 
