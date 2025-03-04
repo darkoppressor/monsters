@@ -1,4 +1,4 @@
-# Damage type
+# Damage Type
 
 * Smashing
 * Slashing
