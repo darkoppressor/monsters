@@ -3,9 +3,9 @@
 #ifndef base_types_h
 #define base_types_h
 
-#include <coords.h>
-#include <collision.h>
-#include <quadtree.h>
+#include <collision/coords.h>
+#include <collision/collision.h>
+#include <collision/quadtree.h>
 
 #include <string>
 #include <cstdint>

@@ -9,7 +9,7 @@
 #include "item.h"
 #include "calendar.h"
 
-#include <rng.h>
+#include <rng/rng.h>
 
 class Game {
     private:

@@ -3,13 +3,13 @@
 #include "game.h"
 #include "game_constants.h"
 
-#include <render.h>
+#include <render/render.h>
 #include <game_window.h>
-#include <sound_manager.h>
-#include <object_manager.h>
-#include <engine_data.h>
+#include <sound/sound_manager.h>
+#include <data/object_manager.h>
+#include <data/engine_data.h>
 #include <log.h>
-#include <engine_strings.h>
+#include <strings/engine_strings.h>
 #include <engine.h>
 
 using namespace std;

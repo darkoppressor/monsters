@@ -7,8 +7,8 @@
 #include "world.h"
 #include "race.h"
 
-#include <progress_bar.h>
-#include <file_io.h>
+#include <ui/progress_bar.h>
+#include <file/file_io.h>
 
 class Game_Data {
     private:

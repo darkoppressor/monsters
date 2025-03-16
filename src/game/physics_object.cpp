@@ -4,7 +4,7 @@
 #include "game_constants.h"
 #include "game.h"
 
-#include <game_manager.h>
+#include <game/game_manager.h>
 #include <engine.h>
 
 using namespace std;

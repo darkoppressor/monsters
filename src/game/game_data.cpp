@@ -3,10 +3,10 @@
 #include "game_data.h"
 
 #include <engine.h>
-#include <data_manager.h>
-#include <data_reader.h>
+#include <data/data_manager.h>
+#include <data/data_reader.h>
 #include <log.h>
-#include <engine_strings.h>
+#include <strings/engine_strings.h>
 
 #include <boost/algorithm/string.hpp>
 

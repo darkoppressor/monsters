@@ -5,8 +5,8 @@
 
 #include "base_types.h"
 
-#include <math_vector.h>
-#include <sprite.h>
+#include <math/math_vector.h>
+#include <sprite/sprite.h>
 
 class PhysicsObject {
     private:

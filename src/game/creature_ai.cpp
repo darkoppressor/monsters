@@ -6,8 +6,8 @@
 #include "game_constants.h"
 
 #include <engine.h>
-#include <engine_math.h>
-#include <collision.h>
+#include <math/engine_math.h>
+#include <collision/collision.h>
 #include <sorting.h>
 
 using namespace std;
